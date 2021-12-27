@@ -1,0 +1,32 @@
+{% extends "city3d/layout.html" %}
+{% load static %}
+
+{% block body %}
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
+        <ul class="navbar-nav" style="padding-right: 5%">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ city.name }}, {{ city.state.initials }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              {% for city in cities %}
+              <li><a class="dropdown-item" href="{% url 'hero' city.name %}">{{ city.name }}, {{ city.state.initials }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="cesiumContainer">
+    <script>
+      var lat = "{{ city.latitude }}"
+      var long = "{{ city.longitude }}"
+      var height = "{{ city.height }}"
+      var cesium_token = "{{ cesium }}"
+    </script>
+    <script src="{% static 'city3d/test.js' %}"></script>
+  </div>
+{% endblock %}

@@ -2,16 +2,16 @@
 Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyM2JkNGUxYy0xMjU5LTRjMjQtODY1NC0wNmNiMDRmZTNkN2MiLCJpZCI6Nzc3NDMsImlhdCI6MTY0MDU1ODUzNH0.fWdgfrOstvfFJ0xErdEphQwA6ZGVQCVBosbrXt0xY4Q';
 
 // A simple demo of 3D Tiles feature picking with hover and select behavior
-// Building data courtesy of NYC OpenData portal: http://www1.nyc.gov/site/doitt/initiatives/3d-building.page
-var viewer = new Cesium.Viewer('cesiumContainer', {
+const viewer = new Cesium.Viewer('cesiumContainer', {
     terrainProvider: Cesium.createWorldTerrain()
 });
 
 viewer.scene.globe.depthTestAgainstTerrain = true;
 
 // Set the initial camera view to look at Austin, TX
-// var target = Cesium.Cartesian3.fromDegrees(-97.747589, 30.263970, 753);
-var initialPosition = Cesium.Cartesian3.fromDegrees( -97.740943, 30.252376, 600); // Austin coordinates
+// Austin target (-97.747589, 30.263970, 753);
+// Austin Camera: ( -97.740943, 30.252376, 600);
+var initialPosition = Cesium.Cartesian3.fromDegrees(long, lat, height); // Austin coordinates
 var initialOrientation = new Cesium.HeadingPitchRoll.fromDegrees(-15, -15);
 viewer.scene.camera.setView({
     destination: initialPosition,

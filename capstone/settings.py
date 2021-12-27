@@ -26,6 +26,10 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.getenv('DEBUG'))
 
+#Your access token can be found at: https://cesium.com/ion/tokens.
+# This is the default access token from your ion account
+CESIUM = str(os.getenv('CESIUM'));
+
 ALLOWED_HOSTS = []
 
 
