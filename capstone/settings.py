@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'obelisk',
+    'city3d',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

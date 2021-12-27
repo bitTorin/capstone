@@ -1,0 +1,13 @@
+{% extends "obelisk/layout.html" %}
+{% load static %}
+
+{% block body %}
+  <style>
+    @import url(/Build/Cesium/Widgets/widgets.css);
+  </style>
+  <div id="cesiumContainer" class="fullSize"></div>
+  <div id="loadingOverlay"><h1>Loading...</h1></div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
