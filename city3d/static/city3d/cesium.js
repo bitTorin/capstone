@@ -1,5 +1,5 @@
 // This is the default access token from your ion account
-Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyM2JkNGUxYy0xMjU5LTRjMjQtODY1NC0wNmNiMDRmZTNkN2MiLCJpZCI6Nzc3NDMsImlhdCI6MTY0MDU1ODUzNH0.fWdgfrOstvfFJ0xErdEphQwA6ZGVQCVBosbrXt0xY4Q';
+Cesium.Ion.defaultAccessToken = token;
 
 // A simple demo of 3D Tiles feature picking with hover and select behavior
 const viewer = new Cesium.Viewer('cesiumContainer', {
@@ -19,9 +19,32 @@ viewer.scene.camera.setView({
     endTransform: Cesium.Matrix4.IDENTITY
 });
 
-// Load the NYC buildings tileset
-// var tileset = new Cesium.Cesium3DTileset({ url: Cesium.IonResource.fromAssetId(5741) });
-// viewer.scene.primitives.add(tileset);
+// Hide individual buildings in this area using 3D Tiles Styling language.
+buildingsTileset.style = new Cesium.Cesium3DTileStyle({
+  // Create a style rule to control each building's "show" property.
+  show: {
+    conditions : [
+      // Any building that has this elementId will have `show = false`.
+      ['${elementId} === 516271470', false],
+      ['${elementId} === 516271461', false],
+      ['${elementId} === 970724032', false],
+      ['${elementId} === 970724028', false],
+      ['${elementId} === 970724033', false],
+      // If a building does not have one of these elementIds, set `show = true`.
+      [true, true]
+    ]
+  },
+  // Set the default color style for this particular 3D Tileset.
+  // For any building that has a `cesium#color` property, use that color, otherwise make it white.
+  color: "Boolean(${feature['cesium#color']}) ? color(${feature['cesium#color']}) : color('#ffffff')"
+});
+
+// Add the 3D Tileset you created from your Cesium ion account.
+const newBuildingTileset = viewer.scene.primitives.add(
+  new Cesium.Cesium3DTileset({
+    url: Cesium.IonResource.fromAssetId(721899)
+  })
+);
 
 // HTML overlay for showing feature name on mouseover
 var nameOverlay = document.createElement('div');
