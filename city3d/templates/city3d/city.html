@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block body %}
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav" style="padding-right: 5%">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle btn btn-outline-light rounded-pill" style="padding-right: 1em; padding-left: 1em;" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               {{ city.name }}, {{ city.state.initials }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -25,8 +25,9 @@
       var lat = "{{ city.latitude }}"
       var long = "{{ city.longitude }}"
       var height = "{{ city.height }}"
-      var cesium_token = "{{ cesium }}"
+      var token = "{{ token }}"
     </script>
-    <script src="{% static 'city3d/test.js' %}"></script>
+    <script src="{% static 'city3d/test.js' %}">
+    </script>
   </div>
 {% endblock %}

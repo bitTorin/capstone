@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block body %}
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav" style="padding-right: 5%">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle btn btn-outline-light rounded-pill" style="padding-right: 1em; padding-left: 1em;" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Select City
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -20,8 +20,9 @@
       </div>
     </div>
   </nav>
-  <!-- <div id="cesiumContainer" class="fullSize"></div> -->
-  <div id="loadingOverlay"><h1>Loading...</h1></div>
+
+  <div id="bg-image"></div>
+
 {% endblock %}
 
 {% block script %}
