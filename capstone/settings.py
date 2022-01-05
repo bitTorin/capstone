@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
+import environ
 from pathlib import Path
 
 
@@ -26,9 +27,14 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.getenv('DEBUG'))
 
-#Your access token can be found at: https://cesium.com/ion/tokens.
+# Your access token can be found at: https://cesium.com/ion/tokens.
 # This is the default access token from your ion account
-CESIUM = str(os.getenv('CESIUM'));
+CESIUM = os.environ.get('CESIUM')
+
+# SOCRATA app token for json api requests
+APP_TOKEN = os.environ.get('APP_TOKEN')
+
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
 ALLOWED_HOSTS = []
 
@@ -118,6 +124,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
 
 
 # Static files (CSS, JavaScript, Images)
