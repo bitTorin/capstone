@@ -20,3 +20,15 @@ class State(models.Model):
 
     def __str__(self):
         return f"{self.initials}"
+
+# class BuildingPermits(models.Model):
+#     type = models.CharField(max_length=12)
+#     active_status = models.BooleanField(default=True)
+#     issued_date = models.DateTimeField()
+#     expires_date = models.DateTimeField()
+#     address = models.CharField(max_length=64)
+#     zip_code = models.IntegerField()
+#     city_project_id = models.IntegerField()
+#
+#     def __str__(self):
+#         return f"{self.id}"
