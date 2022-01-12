@@ -29,8 +29,8 @@
     </div>
   </nav>
   <div id="map2" style="width: 100%; height: 100%"></div>
-  <!-- <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYml0dG9yaW4iLCJhIjoiY2t5Yjdsa2hlMGN2NDJwcWhxbWl6MzVodiJ9.cys7ArUXpKUr4UOJl7nYzw';
+  <script>
+    mapboxgl.accessToken = '{{ token }}';
       const map = new mapboxgl.Map({
         container: 'map2',
         style: 'mapbox://styles/mapbox/light-v10',
@@ -58,6 +58,6 @@
           // });
 
       {% endfor %}
-  </script> -->
+  </script>
 
 {% endblock %}

@@ -7,7 +7,8 @@ from .models import City, State
 def index(request):
 
     return render(request, 'city3d/index.html', {
-        "cities": City.objects.all().order_by('name')
+        "cities": City.objects.all().order_by('name'),
+        "token": settings.MAPBOX_API,
     })
 
 def hero(request, city_name):
@@ -16,6 +17,7 @@ def hero(request, city_name):
     return render( request, 'city3d/city.html', {
         "city": city,
         "cities": City.objects.all().order_by('name'),
+        "token": settings.MAPBOX_API,
     })
 
 def test(request):
@@ -45,11 +47,5 @@ def maps(request):
 def mapbox(request):
 
     return render(request, 'city3d/mapbox.html', {
-
-    })
-
-def maplibre(request):
-
-    return render(request, 'city3d/maplibre.html', {
-
+        "token": settings.MAPBOX_API,
     })

@@ -11,5 +11,4 @@ urlpatterns = [
     path("add", views.add, name="add"),
     path("maps", views.maps, name="maps"),
     path("mapbox", views.mapbox, name="mapbox"),
-    path("maplibre", views.maplibre, name="maplibre"),
 ]

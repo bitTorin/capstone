@@ -38,9 +38,9 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 
 # Google Maps API
 MAPS_API = os.environ.get('MAPS_API')
-#
+
 # # Mapbox API
-# MAPBOX_API = os.environ.get('MAPBOX_API')
+MAPBOX_API = os.environ.get('MAPBOX_API')
 
 ALLOWED_HOSTS = []
 
