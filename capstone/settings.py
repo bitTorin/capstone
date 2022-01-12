@@ -36,6 +36,12 @@ APP_TOKEN = os.environ.get('APP_TOKEN')
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
+# Google Maps API
+MAPS_API = os.environ.get('MAPS_API')
+#
+# # Mapbox API
+# MAPBOX_API = os.environ.get('MAPBOX_API')
+
 ALLOWED_HOSTS = []
 
 
@@ -49,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'leaflet'
 ]
 
 MIDDLEWARE = [
@@ -92,6 +99,7 @@ DATABASES = {
     }
 }
 
+# DATABASE_ROUTERS = ['',]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -137,3 +145,15 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LEAFLET_CONFIG = {
+    "DEFAULT_CENTER": ( 30.2, -97.7),
+    "DEFAULT_ZOOM": 10,
+    "MAX_ZOOM": 20,
+    "MIN_ZOOM": 3,
+    "SCALE": 'both',
+    "ATTRIBUTION_PREFIX": 'City3D',
+}
+
+GDAL_LIBRARY_PATH = 'C:/Program Files/GDAL/gdal303.dll'

@@ -8,5 +8,8 @@ urlpatterns = [
     path("city/<str:city_name>", views.hero, name="hero"),
     path("test", views.test, name="test"),
     path("three", views.three, name="three"),
-    path("add", views.add, name="add")
+    path("add", views.add, name="add"),
+    path("maps", views.maps, name="maps"),
+    path("mapbox", views.mapbox, name="mapbox"),
+    path("maplibre", views.maplibre, name="maplibre"),
 ]

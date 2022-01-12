@@ -14,8 +14,9 @@ from sqlalchemy import create_engine
 # @app.on_after_configure.connect
 # @periodic_task(60)
 def main():
-    AUS_active_permits()
-    AUS_closed_permits()
+    # AUS_active_permits()
+    # AUS_closed_permits()
+    the_republic()
 
 
 def AUS_active_permits():
@@ -202,6 +203,24 @@ def the_independent_test():
     contents = output.getvalue()
     cur.copy_from(output, 'the_independent', null="") # null values become ''
     conn.commit()
+
+def the_republic():
+
+    # App token authentication
+    client = Socrata("data.austintexas.gov",'YoQv3uVAF8Q6UuI4ZzWRUO54Z')
+
+    # Austin Construction Permits Dataset
+    data_set = "3syk-w9eu"
+
+    #Count number of active permits
+    results = client.get(data_set, where="original_address='401 W 4TH ST'")
+
+    # Convert list to pandas DataFrame
+    df = pd.DataFrame.from_records(results)
+
+    print(df)
+
+
 
 if __name__ == "__main__":
     main()

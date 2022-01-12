@@ -1,33 +1,256 @@
 {% extends "city3d/layout.html" %}
 {% load static %}
 
+{% block script %}
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+{% endblock %}
+
 {% block body %}
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
-        <ul class="navbar-nav" style="padding-right: 5%">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle btn btn-outline-light rounded-pill" style="padding-right: 1em; padding-left: 1em;" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{ city.name }}, {{ city.state.initials }}
+<script src="https://unpkg.com/three@0.126.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+<div class="container-fluid g-0">
+	<div class="row g-0">
+		<div class="col-2">
+      <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="padding: 0; margin: 0; height: 100vh">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+          <span class="fs-4">City3D | {{ city.name }}</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link active" aria-current="page">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+                <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+              </svg>
+              Home
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              {% for city in cities %}
-              <li><a class="dropdown-item" href="{% url 'hero' city.name %}">{{ city.name }}, {{ city.state.initials }}</a></li>
-              {% endfor %}
-            </ul>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              Projects
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+              </svg>
+              Filter
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+              Status
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+              Customers
+            </a>
           </li>
         </ul>
+        <hr>
+        <div class="d-flex align-items-center link-dark text-decoration-none">
+          Site created by&nbsp;<a href="https://github.com/bitTorin">bitTorin</a>
+        </div>
       </div>
     </div>
-  </nav>
-  <div id="cesiumContainer">
-    <script>
-      var lat = "{{ city.latitude }}"
-      var long = "{{ city.longitude }}"
-      var height = "{{ city.height }}"
-      var token = "{{ token }}"
-    </script>
-    <script src="{% static 'city3d/test.js' %}">
-    </script>
+    <!-- <div class="col-auto px-0"
+      <div id="sidebar" class="collapse collapse-horizontal show border-end">
+        <div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start min-vh-100">
+          <a href="#" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><span>Item</span> </a>
+          <a href="#" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><span>Item</span></a>
+        </div>
+      </div>
+    </div> -->
+    <!-- <div class="col-2">
+      <div class="offcanvas offcanvas-right" tabindex="-1" id="sidebarRight">
+        <div class="offcanvas-header">
+          <h5 id="offcanvasTopLabel">Offcanvas right</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          ...
+        </div>
+      </div>
+    </div> -->
+    <div class="col">
+      <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none" style="position: relative; top: 1em; left: 1em; z-index: 11">Menu</a>
+    </div>
+    <div class="col">
+      <!-- <button id="sidebarToggle" type="button" class="btn btn-light" data-bs-toggle="sidebarRight" data-bs-target="#sidebarRight" style="position: relative; top: 1em; left: 1em; z-index: 11">Toggle Sidebar</button> -->
+      <div id="map" style="width: 100%; height: 100%; background-color: blue;"></div>
+      <script>
+      	// mapboxgl.accessToken = 'pk.eyJ1IjoiYml0dG9yaW4iLCJhIjoiY2t5Yjdsa2hlMGN2NDJwcWhxbWl6MzVodiJ9.cys7ArUXpKUr4UOJl7nYzw';
+        //   const map = new mapboxgl.Map({
+        //       container: 'map',
+        //       style: 'mapbox://styles/mapbox/light-v10',
+        //       zoom: 16,
+      	// 			center: [{{city.longitude}}, {{city.latitude}}],
+        //       pitch: 60,
+        //       rotate: 30,
+        //       antialias: true // create the gl context with MSAA antialiasing, so custom layers are antialiased
+        //   });
+        //
+        //   // parameters to ensure the model is georeferenced correctly on the map
+      	// 	// const modelOrigin = [ -97.74760834, 30.267067 ]; // The Republic
+        //   const modelOrigin = [ -97.75093592, 30.26775294 ]; // The Independent
+        //   const modelAltitude = 0;
+        //   const modelRotate = [Math.PI / 2, 0, 0];
+        //
+        //   const modelAsMercatorCoordinate = mapboxgl.MercatorCoordinate.fromLngLat(
+        //       modelOrigin,
+        //       modelAltitude
+        //   );
+        //
+        //   // transformation parameters to position, rotate and scale the 3D model onto the map
+        //   const modelTransform = {
+        //       translateX: modelAsMercatorCoordinate.x,
+        //       translateY: modelAsMercatorCoordinate.y,
+        //       translateZ: modelAsMercatorCoordinate.z,
+        //       rotateX: modelRotate[0],
+        //       rotateY: modelRotate[1],
+        //       rotateZ: modelRotate[2],
+        //       // Since the 3D model is in real world meters, a scale transform needs to be
+        //       // applied since the CustomLayerInterface expects units in MercatorCoordinates.
+        //
+        //       scale: modelAsMercatorCoordinate.meterInMercatorCoordinateUnits()
+        //   };
+        //
+        //   const THREE = window.THREE;
+        //
+        //   // configuration of the custom layer for a 3D model per the CustomLayerInterface
+        //   const customLayer = {
+        //       id: '3d-model',
+        //       type: 'custom',
+        //       renderingMode: '3d',
+        //       onAdd: function (map, gl) {
+        //           this.camera = new THREE.Camera();
+        //           this.scene = new THREE.Scene();
+        //
+        //           // create two three.js lights to illuminate the model
+        //           const directionalLight = new THREE.DirectionalLight(0xffffff);
+        //           directionalLight.position.set(0, -70, 100).normalize();
+        //           this.scene.add(directionalLight);
+        //
+        //           const directionalLight2 = new THREE.DirectionalLight(0xffffff);
+        //           directionalLight2.position.set(0, 70, 100).normalize();
+        //           this.scene.add(directionalLight2);
+        //
+        //           // use the three.js GLTF loader to add the 3D model to the three.js scene
+        //           const loader = new THREE.GLTFLoader();
+        //           loader.load(
+        //               "{% static 'city3d/buildings/austin/gltf/the_independent.gltf' %}",
+        //               (gltf) => {
+        //                   this.scene.add(gltf.scene);
+        //               }
+        //           );
+        //           this.map = map;
+        //
+        //           // use the Mapbox GL JS map canvas for three.js
+        //           this.renderer = new THREE.WebGLRenderer({
+        //               canvas: map.getCanvas(),
+        //               context: gl,
+        //               antialias: true
+        //           });
+        //
+        //           this.renderer.autoClear = false;
+        //       },
+        //       render: function (gl, matrix) {
+        //           const rotationX = new THREE.Matrix4().makeRotationAxis(
+        //               new THREE.Vector3(1, 0, 0),
+        //               modelTransform.rotateX
+        //           );
+        //           const rotationY = new THREE.Matrix4().makeRotationAxis(
+        //               new THREE.Vector3(0, 1, 0),
+        //               modelTransform.rotateY
+        //           );
+        //           const rotationZ = new THREE.Matrix4().makeRotationAxis(
+        //               new THREE.Vector3(0, 0, 1),
+        //               modelTransform.rotateZ
+        //           );
+        //
+        //           const m = new THREE.Matrix4().fromArray(matrix);
+        //           const l = new THREE.Matrix4()
+        //               .makeTranslation(
+        //                   modelTransform.translateX,
+        //                   modelTransform.translateY,
+        //                   modelTransform.translateZ
+        //               )
+        //               .scale(
+        //                   new THREE.Vector3(
+        //                       modelTransform.scale,
+        //                       -modelTransform.scale,
+        //                       modelTransform.scale
+        //                   )
+        //               )
+        //               .multiply(rotationX)
+        //               .multiply(rotationY)
+        //               .multiply(rotationZ);
+        //
+        //           this.camera.projectionMatrix = m.multiply(l);
+        //           this.renderer.resetState();
+        //           this.renderer.render(this.scene, this.camera);
+        //           this.map.triggerRepaint();
+        //       }
+        //   };
+        //
+        //   map.on('style.load', () => {
+        //       map.addLayer(customLayer, 'waterway-label');
+      	// 			// Insert the layer beneath any symbol layer.
+        //       const layers = map.getStyle().layers;
+        //       const labelLayerId = layers.find(
+        //         (layer) => layer.type === 'symbol' && layer.layout['text-field']
+        //       ).id;
+        //
+      	// 			map.addLayer(
+      	// 				{
+      	// 					'id': 'add-3d-buildings',
+      	// 					'source': 'composite',
+      	// 					'source-layer': 'building',
+      	// 					'filter': ['==', 'extrude', 'true'],
+      	// 					'type': 'fill-extrusion',
+      	// 					'minzoom': 5,
+      	// 					'paint': {
+      	// 						'fill-extrusion-color': '#aaa',
+        //
+      	// 						// Use an 'interpolate' expression to
+      	// 						// add a smooth transition effect to
+      	// 						// the buildings as the user zooms in.
+      	// 						'fill-extrusion-height': [
+      	// 							'interpolate',
+      	// 							['linear'],
+      	// 							['zoom'],
+      	// 							5,
+      	// 							0,
+      	// 							5.05,
+      	// 							['get', 'height']
+      	// 						],
+      	// 						'fill-extrusion-base': [
+      	// 							'interpolate',
+      	// 							['linear'],
+      	// 							['zoom'],
+      	// 							5,
+      	// 							0,
+      	// 							5.05,
+      	// 							['get', 'min_height']
+      	// 						],
+      	// 						'fill-extrusion-opacity': 0.6
+      	// 					}
+      	// 				},
+      	// 				labelLayerId
+      	// 			);
+        //   });
+      </script>
+    </div>
   </div>
+</div>
+
+
+
 {% endblock %}

@@ -16,23 +16,40 @@ def hero(request, city_name):
     return render( request, 'city3d/city.html', {
         "city": city,
         "cities": City.objects.all().order_by('name'),
-        "token": settings.CESIUM,
     })
 
 def test(request):
 
     return render(request, 'city3d/test.html', {
-        "token": settings.CESIUM,
+
     })
 
 def three(request):
 
     return render(request, 'city3d/three.html', {
-        "token": settings.CESIUM,
+
     })
 
 def add(request):
 
     return render(request, 'city3d/add.html', {
-        "token": settings.CESIUM,
+
+    })
+
+def maps(request):
+
+    return render(request, 'city3d/maps.html', {
+        "maps_api": settings.MAPS_API,
+    })
+
+def mapbox(request):
+
+    return render(request, 'city3d/mapbox.html', {
+
+    })
+
+def maplibre(request):
+
+    return render(request, 'city3d/maplibre.html', {
+
     })
