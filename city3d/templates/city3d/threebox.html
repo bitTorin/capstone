@@ -1,0 +1,310 @@
+{% extends "city3d/layout.html" %}
+{% load static %}
+
+{% block script %}
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
+	<script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+  <script src="https://unpkg.com/threebox-plugin/dist/threebox.min.js" type="text/javascript"></script>
+  <link href="https://unpkg.com/threebox-plugin/dist/threebox.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid g-0">
+	<div class="row g-0">
+    <div class="col-auto">
+      <!-- Sidebar -->
+      {% for building in buildings %}
+        <div class="offcanvas offcanvas-end w-10" tabindex="-1" id="{{ building.id }}" data-bs-scroll="true" data-bs-backdrop="false">
+          <div class="offcanvas-header">
+              <h4 class="offcanvas-title d-none d-sm-block" id="offcanvas"><b>{{ building.name }}</b></h4>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body px-0" style="overflow: auto">
+            <figure class="figure" style="padding-left: 1em;">
+              <img src="../../static/city3d/buildings/austin/img/{{ building.img }}" alt="{{ building.name }}" class="figure-img img-fluid rounded" width="300" height="200">
+              <figcaption class="figure-caption">&copy {{ building.img_cred }}</figcaption>
+            </figure>
+            <div class="accordion" id="accordionSidebar">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingInfo">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInfo" aria-expanded="true" aria-controls="collapseInfo">
+                    Info
+                  </button>
+                </h2>
+                <div id="collapseInfo" class="accordion-collapse collapse show" aria-labelledby="headingInfo" data-bs-parent="#accordionSidebar">
+                  <div class="accordion-body">
+                    <h6>{{ building.permits.current_status }}</h6>
+                    <h6>Location</h6>
+                    <h6>{{ building.permits.expires_date|date:"M Y" }}</h6>
+                    <h6>${{ building.permits.valuation|floatformat:"0" }}</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTeam">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTeam" aria-expanded="false" aria-controls="collapseTeam">
+                    Project Team
+                  </button>
+                </h2>
+                <div id="collapseTeam" class="accordion-collapse collapse" aria-labelledby="headingTeam" data-bs-parent="#accordionSidebar">
+                  <div class="accordion-body">
+                    <h6>Developer</h6>
+                    <h6>General Contractor</h6>
+                    <h6>Architect</h6>
+                    <h6>Engineers</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingPermits">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePermits" aria-expanded="false" aria-controls="collapsePermits">
+                    Permits
+                  </button>
+                </h2>
+                <div id="collapsePermits" class="accordion-collapse collapse" aria-labelledby="headingPermits" data-bs-parent="#accordionSidebar">
+                  <div class="accordion-body">
+                    <h6>Permit Number: {{ building.permits.city_project_id }}</h6>
+                    <a href="{{ building.permits.link }}" class="nav-link text-truncate" target="_blank">
+                      <span class="ms-1 d-none d-sm-inline">View Permit</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingNews">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNews" aria-expanded="false" aria-controls="collapseNews">
+                    Recent News
+                  </button>
+                </h2>
+                <div id="collapseNews" class="accordion-collapse collapse" aria-labelledby="headingNews" data-bs-parent="#accordionSidebar">
+                  <div class="accordion-body">
+                    {% for headline in headlines %}
+                      {% if headline.building == building %}
+                        <div class="card-body">
+                          <img class="img-fluid rounded" src="{{ headline.img }}" style="display: inline-block; height: 5em; width: 5em">
+                          <span class="card-text" style="display: inline-block;"><a href="{{ headline.link }}" target="_blank" style="text-decoration: none; color: black; font-weight: bold">{{ headline.title }}</a></span>
+                          <span class="card-text text-muted" style="display: inline-block;">
+                            <strong>{{ headline.publisher }}</strong> {{ headline.datetime|date:"M d, 'y" }}
+                          </span>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <!-- Main body -->
+    <!-- <div class="col">
+      <a href="#" data-bs-target="#offcanvas" data-bs-toggle="offcanvas" class="border rounded-3 p-1 text-decoration-none" style="position: relative; top: 1em; left: 1em; z-index: 11">Menu</a>
+    </div> -->
+    <div class="col">
+      <div id='map' class='map'  style="width: 100%; height: 100%;"></div>
+
+      <script type="module">
+
+        mapboxgl.accessToken = '{{ token }}';
+
+        let minZoom = 12;
+        let names = {
+            compositeSource: "composite",
+            compositeSourceLayer: "building",
+            compositeLayer: "3d-buildings"
+
+        }
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v10',
+            center: [{{city.view_long}}, {{city.view_lat}}],
+            zoom: 16.5,
+            pitch: 60,
+            antialias: true,
+            heading: 30,
+            hash: true
+        });
+
+        // we can add Threebox to mapbox to add built-in mouseover/mouseout and click behaviors
+        window.tb = new Threebox(
+            map,
+            map.getCanvas().getContext('webgl'),
+            {
+                defaultLights: true,
+                enableSelectingFeatures: true, //change this to false to disable fill-extrusion features selection
+                enableSelectingObjects: true, //change this to false to disable 3D objects selection
+                enableDraggingObjects: false, //change this to false to disable 3D objects drag & move once selected
+                enableRotatingObjects: false, //change this to false to disable 3D objects rotation once selected
+                enableTooltips: true, // change this to false to disable default tooltips on fill-extrusion and 3D models
+            }
+        );
+
+    		import { GUI } from 'https://threejs.org/examples/jsm/libs/lil-gui.module.min.js';
+    		import Stats from 'https://threejs.org/examples/jsm/libs/stats.module.js';
+
+    		let stats, gui;
+    		function animate() {
+    			requestAnimationFrame(animate);
+    			stats.update();
+    		}
+
+    		var active = false
+    		map.on('style.load', function () {
+    			init();
+
+                map.addLayer(createCompositeLayer());
+
+                map.addLayer({
+                    id: 'custom_layer',
+                    type: 'custom',
+                    renderingMode: '3d',
+                    onAdd: function (map, mbxContext) {
+
+                        tb.altitudeStep = 1;
+
+                        {% for building in buildings %}
+
+                          var options = {
+                              obj: '../../static/city3d/buildings/{{ city.name }}/gltf/{{ building.gltf }}',
+                              type: 'gltf',
+                              scale: 1,
+                              units: 'meters',
+                              rotation: { x: 90, y: {{ building.model_rotation }}, z: 0 }, //rotation
+                              bbox: false,
+                              callback: '{{ building.id }}',
+
+                          }
+
+                          tb.loadObj(options, function (model) {
+                              //origin3[2] += model.modelSize.z;
+                              // [ -97.740377, 30.260396, 0 ] waller tower coordinates
+                              let building = model.setCoords( [ {{ building.longitude }}, {{ building.latitude }}, 0 ] );
+      						            model.addTooltip('{{ building.name }}', true);
+                              model.addEventListener('SelectedChange', onSelectedChange, false);
+                              model.addEventListener();
+
+                              tb.add(building);
+
+                          })
+
+                        {% endfor %}
+
+                    },
+
+                    render: function (gl, matrix) {
+                        tb.update();
+                    }
+                });
+
+            });
+
+            function createCompositeLayer() {
+                let layer = {
+                    'id': names.compositeLayer,
+                    'source': names.compositeSource,
+                    'source-layer': names.compositeSourceLayer,
+                    'filter': ["all",
+                      ['!=', 'name', "The Independent"],
+                      ['!=', 'building', "516271470"],
+                      ['==', 'extrude', 'true'],
+                      ['!=', 'type', 'construction'],
+                    ],
+                    'type': 'fill-extrusion',
+                    'minzoom': minZoom,
+                    'paint': {
+                        'fill-extrusion-color':
+                            [
+                                'case',
+                                ['boolean', ['feature-state', 'select'], false],
+                                "lightgreen",
+                                ['boolean', ['feature-state', 'hover'], false],
+                                "lightblue",
+                                '#aaa'
+                            ],
+
+                        // use an 'interpolate' expression to add a smooth transition effect to the
+                        // buildings as the user zooms in
+                        'fill-extrusion-height': [
+                            'interpolate',
+                            ['linear'],
+                            ['zoom'],
+                            minZoom,
+                            0,
+                            minZoom + 0.05,
+                            ['get', 'height']
+                        ],
+                        'fill-extrusion-base': [
+                            'interpolate',
+                            ['linear'],
+                            ['zoom'],
+                            minZoom,
+                            0,
+                            minZoom + 0.05,
+                            ['get', 'min_height']
+                        ],
+                        'fill-extrusion-opacity': 0.9
+                    }
+                };
+                return layer;
+            }
+
+    		function createLabelIcon(text) {
+    			let popup = document.createElement('div');
+    			popup.innerHTML = '<span title="' + text + '" style="font-size: 30px;color: yellow;">&#9762;</span>';
+    			return popup;
+    		}
+
+        function onSelectedChange(e) {
+
+          let selected = e.detail.selected;
+          console.log(selected);
+          let clickedBuilding = e.detail.userData.callback;
+          console.log(clickedBuilding);
+
+          if (selected) {
+
+            let clickedBuilding = e.detail.userData.callback;
+            console.log(clickedBuilding);
+
+            var infobar = document.getElementById(clickedBuilding);
+            var bsOffcanvas = new bootstrap.Offcanvas(infobar);
+            bsOffcanvas.show();
+          }
+
+          else {
+            var infobars = document.getElementsByClassName("offcanvas-end");
+            for (var i = 0; i < infobars.length; i++){
+              infobars[i].classList.remove("show");
+            }
+          }
+        }
+
+    		let api = {
+    			fov: Math.atan(3 / 4) * 180 / Math.PI,
+    			orthographic: false
+    		};
+
+    		function init() {
+    			// stats
+    			stats = new Stats();
+    			map.getContainer().appendChild(stats.dom);
+    			animate();
+    			// gui
+    			gui = new GUI();
+    			// going below 2.5 degrees will start to generate serious issues with polygons in fill-extrusions and 3D meshes
+    			// going above 45 degrees will also produce clipping and performance issues
+                gui.add(api, 'fov', 2.5, 45.0).step(0.1).onChange(changeFOV);
+                // this will set 0.01 degrees in Mapbox which is the minimum possible and an OrthographicCamera in three.js
+    			gui.add(api, 'orthographic').name('pure orthographic').onChange(changeFOV);
+    		}
+
+    		function changeFOV() {
+    			tb.orthographic = api.orthographic;
+    			tb.fov = api.fov;
+    		}
+      </script>
+    </div>
+{% endblock %}
