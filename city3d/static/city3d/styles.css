@@ -11,8 +11,9 @@ body {
 
 #map {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 10em;
+  bottom: 5em;
+  z-index: 0;
 }
 
 
@@ -20,4 +21,22 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
+}
+
+@media (max-width: 700px) {
+  .offcanvas-end {
+    width: 100%;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1200px) {
+  .offcanvas-end {
+    width: 35%;
+  }
+}
+
+@media (min-width: 1201px) {
+  .offcanvas-end {
+    width: 25%;
+  }
 }

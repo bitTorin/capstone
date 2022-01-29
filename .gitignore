@@ -3,10 +3,11 @@
 leaflet.html
 mapbox.html
 maps.html
+test.html
+three.html
 cube.js
 leaflet.ajax.js
 test_map.js
-static/city3d/gltf
 
 
 ## Ignore Visual Studio temporary files, build results, and

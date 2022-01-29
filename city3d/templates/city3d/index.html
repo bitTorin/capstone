@@ -1,33 +1,12 @@
 {% extends "city3d/layout.html" %}
 {% load static %}
-{% load leaflet_tags %}
 
 {% block script %}
-  {% leaflet_js %}
-  {% leaflet_css %}
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
 {% endblock %}
 
 {% block body %}
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="z-index: 10">
-    <div class="container-fluid">
-      <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
-        <ul class="navbar-nav" style="padding-right: 5%">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle btn btn-outline-dark rounded-pill" style="padding-right: 1em; padding-left: 1em;" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Select City
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              {% for city in cities %}
-              <li><a class="dropdown-item" href="{% url 'hero' city.name %}">{{ city.name }}, {{ city.state.initials }}</a></li>
-              {% endfor %}
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
   <div id="map2" style="width: 100%; height: 100%"></div>
   <script>
     mapboxgl.accessToken = '{{ token }}';
@@ -46,7 +25,7 @@
 
       {% for city in cities %}
 
-        var marker = new mapboxgl.Marker().setLngLat([{{ city.longitude }}, {{ city.latitude }}]).addTo(map)
+        var marker = new mapboxgl.Marker().setLngLat([{{ city.viewport_long }}, {{ city.viewport_lat }}]).addTo(map)
           .setPopup(new mapboxgl.Popup().setHTML("<a href=\"{% url 'hero' city.name %}\"><b>{{ city.name }},{{ city.state }}</b></a>"));
           //
           // marker.on('mouseover',function(ev) {

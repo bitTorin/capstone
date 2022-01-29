@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.conf import settings
 
-from .models import City, State
+from .models import City, State, Building, Permit, Headline
 
 def index(request):
 
@@ -11,41 +11,28 @@ def index(request):
         "token": settings.MAPBOX_API,
     })
 
+
 def hero(request, city_name):
     city = City.objects.get(name = city_name)
 
-    return render( request, 'city3d/city.html', {
+    return render( request, 'city3d/threebox.html', {
         "city": city,
         "cities": City.objects.all().order_by('name'),
         "token": settings.MAPBOX_API,
+        "buildings": Building.objects.all(),
+        "permits": Permit.objects.all(),
+        "headlines": Headline.objects.all().order_by('-datetime')
     })
 
-def test(request):
+def threebox(request, city_name):
 
-    return render(request, 'city3d/test.html', {
+    city = City.objects.get(name = city_name)
 
-    })
-
-def three(request):
-
-    return render(request, 'city3d/three.html', {
-
-    })
-
-def add(request):
-
-    return render(request, 'city3d/add.html', {
-
-    })
-
-def maps(request):
-
-    return render(request, 'city3d/maps.html', {
-        "maps_api": settings.MAPS_API,
-    })
-
-def mapbox(request):
-
-    return render(request, 'city3d/mapbox.html', {
+    return render(request, 'city3d/threebox.html', {
+        "city": city,
+        "cities": City.objects.all().order_by('name'),
         "token": settings.MAPBOX_API,
+        "buildings": Building.objects.all(),
+        "permits": Permit.objects.all(),
+        "headlines": Headline.objects.all().order_by('-datetime')
     })
