@@ -14,6 +14,7 @@ class City(models.Model):
 
     class Meta:
         verbose_name_plural = "cities"
+        db_table = "cities"
 
     def __str__(self):
         return f"{self.name}"
@@ -23,7 +24,7 @@ class State(models.Model):
     initials = models.CharField(primary_key=True, max_length=2)
 
     class Meta:
-        db_table = "city3d_state"
+        db_table = "states"
 
     def __str__(self):
         return f"{self.initials}"
@@ -38,6 +39,8 @@ class Building(models.Model):
     longitude = models.DecimalField(max_digits = 10, decimal_places = 8, blank=True)
     model_rotation = models.DecimalField(max_digits = 5, decimal_places = 2, default=0, null=True)
 
+    class Meta:
+        db_table = "buildings"
 
     def __str__(self):
         return f"{self.name}"
@@ -49,30 +52,33 @@ class Headline(models.Model):
     link = models.URLField()
     img = models.URLField()
 
+    class Meta:
+        db_table = "headlines"
+
     def __str__(self):
         return f"{self.title}"
 
 class Permit(models.Model):
     index = models.IntegerField(primary_key=True)
-    permittype = models.CharField(max_length=20)
+    permit_type = models.CharField(max_length=20)
     permit_number = models.CharField(max_length=20)
-    permit_class_mapped = models.CharField(max_length=20)
-    issue_date = models.DateTimeField()
-    issued_in_last_30_days = models.CharField(max_length=3)
-    status_current = models.CharField(max_length=20)
-    expiresdate = models.DateTimeField()
-    original_address1 = models.CharField(max_length=64)
-    original_city = models.CharField(max_length=64)
-    original_state = models.CharField(max_length=64)
-    original_zip = models.IntegerField()
-    link = models.URLField()
+    permit_class = models.CharField(max_length=20)
     project_id = models.IntegerField()
+    issue_date = models.DateTimeField()
+    last_30_days = models.CharField(max_length=3)
+    current_status = models.CharField(max_length=20)
+    expires_date = models.DateTimeField()
+    address = models.CharField(max_length=64)
+    city = models.CharField(max_length=64)
+    state = models.CharField(max_length=64)
+    zip = models.IntegerField()
+    link = models.URLField()
     latitude = models.DecimalField(max_digits = 10, decimal_places = 8, blank=True)
     longitude = models.DecimalField(max_digits = 10, decimal_places = 8, blank=True)
-    total_job_valuation = models.FloatField()
+    valuation = models.FloatField()
 
     class Meta:
-        db_table = "city3d_permit"
+        db_table = "permits"
 
     def __str__(self):
         return f"{self.id}"

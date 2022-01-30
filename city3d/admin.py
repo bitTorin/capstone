@@ -12,7 +12,7 @@ class BuildingAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "address", "gltf", "img", "img_cred", "latitude", "longitude")
 
 class PermitAdmin(admin.ModelAdmin):
-    list_display = ("index", "permittype", "permit_number", "permit_class_mapped", "issue_date", "issued_in_last_30_days", "status_current", "expiresdate", "original_address1", "original_city", "original_state", "original_zip", "link", "project_id", "latitude", "longitude", "total_job_valuation")
+    list_display = ("index", "permit_type", "permit_number", "permit_class", "project_id", "issue_date", "last_30_days", "current_status", "expires_date", "address", "city", "state", "zip", "link", "latitude", "longitude", "valuation")
 
 class HeadlineAdmin(admin.ModelAdmin):
     list_display = ("id", "datetime", "title", "publisher", "link", "img")
