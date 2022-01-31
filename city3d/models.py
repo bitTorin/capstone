@@ -81,4 +81,4 @@ class Permit(models.Model):
         db_table = "permits"
 
     def __str__(self):
-        return f"{self.id}"
+        return f"{self.index}"

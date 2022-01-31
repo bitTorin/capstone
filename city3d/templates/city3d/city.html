@@ -160,6 +160,7 @@
                     id: 'active-construction-3d',
                     type: 'custom',
                     renderingMode: '3d',
+                    minzoom: '15',
                     onAdd: function (map, mbxContext) {
 
                         tb.altitudeStep = 1;
@@ -167,7 +168,7 @@
                         {% for permit in permits %}
 
                           var options = {
-                              obj: '../../static/city3d/buildings/{{ city.name }}/gltf/pin.gltf',
+                              obj: '../../static/city3d/buildings/base/pin.gltf',
                               type: 'gltf',
                               scale: 10,
                               units: 'meters',
