@@ -137,8 +137,7 @@ class Command(BaseCommand):
         # Map addresses to list
         addresses = df['address'].values.tolist()
 
-        for i in range(10):
-        # for i in range(len(addresses)):
+        for i in range(len(addresses)):
 
             # Define base url
             url_2 = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
