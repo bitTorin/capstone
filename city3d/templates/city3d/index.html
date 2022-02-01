@@ -26,7 +26,7 @@
       {% for city in cities %}
 
         var marker = new mapboxgl.Marker().setLngLat([{{ city.viewport_long }}, {{ city.viewport_lat }}]).addTo(map)
-          .setPopup(new mapboxgl.Popup().setHTML("<a href=\"{% url 'hero' city.name %}\"><b>{{ city.name }},{{ city.state }}</b></a>"));
+          .setPopup(new mapboxgl.Popup().setHTML("<a href=\"{% url 'hero' city.name %}\" style='outline: 0'"><b>{{ city.name }},{{ city.state }}</b></a>"));
 
         // marker.on('mouseover',function(ev) {
         //   ev.target.openPopup();

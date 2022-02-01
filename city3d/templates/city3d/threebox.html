@@ -167,31 +167,55 @@
 
               {% for permit in permits %}
 
-                {% if permit.city == city %}
+                  {% if permit.building %}
 
-                  var options = {
-                    obj: '../../static/city3d/buildings/base/pin.gltf',
-                    type: 'gltf',
-                    scale: 10,
-                    units: 'meters',
-                    rotation: { x: 180, y: 0, z: 0 }, //rotation
-                    bbox: false,
-                    callback: '{{ permit.index }}',
-                  }
+                    var options = {
+                      obj: '../../static/city3d/buildings/base/pin.gltf',
+                      type: 'gltf',
+                      scale: 10,
+                      units: 'meters',
+                      rotation: { x: 180, y: 0, z: 0 }, //rotation
+                      bbox: false,
+                      callback: '{{ permit.index }}',
+                    }
 
 
-                  tb.loadObj(options, function (model) {
-                    let marker = model.setCoords( [ {{ permit.longitude }}, {{ permit.latitude }}, 20 ] );
+                    tb.loadObj(options, function (model) {
+                      let marker = model.setCoords( [ {{ permit.longitude }}, {{ permit.latitude }}, 20 ] );
 
-                    model.addTooltip('<a href="{{ permit.link }}" target="_blank" style="text-decoration: none;">Permit: {{ permit.project_id }}</a>', true);
+                      model.addTooltip('<a href="{{ permit.link }}" target="_blank" style="text-decoration: none;">Permit: {{ permit.project_id }}</a>', true);
 
-                    model.addEventListener('SelectedChange', onSelectedChange, false);
+                      model.addEventListener('SelectedChange', onSelectedChange, false);
 
-                    tb.add(marker);
+                      tb.add(marker);
 
-                  });
-                  
-                {% endif %}
+                    });
+
+                  {% else %}
+
+                    var options = {
+                      obj: '../../static/city3d/buildings/base/pin_blue.gltf',
+                      type: 'gltf',
+                      scale: 10,
+                      units: 'meters',
+                      rotation: { x: 180, y: 0, z: 0 }, //rotation
+                      bbox: false,
+                      callback: '{{ permit.index }}',
+                    }
+
+
+                    tb.loadObj(options, function (model) {
+                      let marker = model.setCoords( [ {{ permit.longitude }}, {{ permit.latitude }}, 20 ] );
+
+                      model.addTooltip('<a href="{{ permit.link }}" target="_blank" style="text-decoration: none;">Permit: {{ permit.project_id }}</a>', true);
+
+                      model.addEventListener('SelectedChange', onSelectedChange, false);
+
+                      tb.add(marker);
+
+                    });
+
+                  {% endif %}
 
               {% endfor %}
 
