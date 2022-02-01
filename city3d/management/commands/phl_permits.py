@@ -63,8 +63,6 @@ class Command(BaseCommand):
 
         ids = df['project_id'].tolist()
 
-        print("Checkpoint 2: Starting...")
-
         # Define counter variable
         j = 0
 
@@ -131,7 +129,7 @@ class Command(BaseCommand):
 
         print("Checkpoint 4: Success")
 
-        # Declare lsits for future
+        # Declare lists for future
         delete_list = []
         latitude = []
         longitude = []
@@ -139,7 +137,8 @@ class Command(BaseCommand):
         # Map addresses to list
         addresses = df['address'].values.tolist()
 
-        for i in range(len(addresses)):
+        for i in range(10):
+        # for i in range(len(addresses)):
 
             # Define base url
             url_2 = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
@@ -168,18 +167,26 @@ class Command(BaseCommand):
                 data = r.json()
 
                 # Save latitude and longitude values to list
-                for x, item in enumerate(data["features"]):
-                    if x == 0:
-                        lat = item["center"][1]
-                        latitude.append(lat)
-                        long = item["center"][0]
-                        longitude.append(long)
+                try:
+                    for x, item in enumerate(data["features"]):
+                        if x == 0:
+                            lat = item["center"][1]
+                            latitude.append(lat)
+                            long = item["center"][0]
+                            longitude.append(long)
+
+                except:
+                    lat = 0
+                    latitude.append(lat)
+                    long = 0
+                    longitude.append(long)
+                    print("Checkpoint 5: completing ", i)
+                    continue
 
                 print("Checkpoint 5: completing ", i)
 
             # Time delay to not overrun api server loads
             time.sleep(.1)
-
 
         # once complete, delete dataframe rows with no address field before adding lat, long columns !important order of operations
         for x in range(len(delete_list)):
