@@ -1,0 +1,393 @@
+{
+  "rows": [
+    {
+      "cartodb_id": 136329,
+      "the_geom": null,
+      "the_geom_webmercator": null,
+      "objectid": 138560,
+      "permitnumber": "CP-2021-005737",
+      "addressobjectid": "409523034",
+      "parcel_id_num": "Parcel A ",
+      "permittype": "BUILDING",
+      "permitdescription": "COMMERCIAL BUILDING PERMIT",
+      "commercialorresidential": "COMMERCIAL",
+      "typeofwork": "NEW CONSTRUCTION",
+      "approvedscopeofwork": "FOR THE ERECTION OF AN ATTACHED HIGH-RISE STRUCTURE AS PER APPROVED PLANS. FOR VACANT COMMERCIAL / RETAIL SPACES ON FIRST FLOOR  (USES ONLY PERMITTED IN CMX-3 THAT NOT TO REQUIRE OFF STREET PARKING AS PER TABLE 14-802-2, SEPARATE USE REGISTRATION AND FIT-OUT PERMITS ARE REQUIRED PRIOR TO OCCUPANCY) AND FOR  MULTI-FAMILY HOUSEHOLD LIVING ONE HUNDRED NINETY-EIGHT (198) DWELLING UNITS, AND  ACCESSORY OFF-SITE PARKING AT 1201 WALNUT ST (PERMIT # 976356) THIRTY-FOUR (34)  PARKING SPACES  INCLUDING ONE (2) ACCESSIBLE SPACES / VAN ACCESSIBLE SPACE, TWO (2) ELECTRIC VEHICLE PARKING SPACES AND SIXTY-EIGHT (68) CLASS 1A BICYCLE PARKING SPACES ON AN ACCESSIBLE ROUTE. BUILDING TO BE FULLY SPRINKLERED. SEPARATE PERMITS REQUIRED FOR MEP AND FP WORKS. SEPARATE APPROVAL IS REQUIRED FROM PA L&I FOR ELEVATOR INSTALLATION.",
+      "permitissuedate": "2021-12-15T00:00:00Z",
+      "status": "ISSUED",
+      "applicanttype": "PROFESSIONAL / TRADESPERSON",
+      "contractorname": "ERNEST BOCK & SONS, INC.",
+      "contractoraddress1": "ERNEST BOCK & SONS, INC.\r\n2800 SOUTHAMPTON ROAD\r\nPHILADELPHIA, PA  19154\r\nUSA",
+      "contractoraddress2": null,
+      "contractorcity": null,
+      "contractorstate": null,
+      "contractorzip": null,
+      "mostrecentinsp": "2021-12-28T08:05:13Z",
+      "opa_account_num": null,
+      "address": "1101 WALNUT ST",
+      "unit_type": "#",
+      "unit_num": "PARCELA",
+      "zip": "19107",
+      "censustract": "6",
+      "council_district": null,
+      "opa_owner": null,
+      "systemofrecord": "ECLIPSE",
+      "geocode_x": null,
+      "geocode_y": null,
+      "posse_jobid": "386517902"
+    }, {
+      "cartodb_id": 182228,
+      "the_geom": null,
+      "the_geom_webmercator": null,
+      "objectid": 183609,
+      "permitnumber": "ZP-2020-001506",
+      "addressobjectid": "263040337",
+      "parcel_id_num": "Parcel A",
+      "permittype": "ZONING",
+      "permitdescription": "ZONING PERMIT",
+      "commercialorresidential": "COMMERCIAL",
+      "typeofwork": "NEW CONSTRUCTION, ADDITION, GFA CHANGE",
+      "approvedscopeofwork": "FOR THE ERECTION OF A DETACHED BUILDING (SIZE AND LOCATION AS SHOWN ON PLANS)",
+      "permitissuedate": "2020-08-25T14:07:12Z",
+      "status": "ISSUED",
+      "applicanttype": "PROFESSIONAL / TRADESPERSON",
+      "contractorname": "JKR PARTNERS LLC_",
+      "contractoraddress1": "JKR PARTNERS LLC_\r\n100 E PENN SQUARE\r\nSUITE 1080\r\nPHILADELPHIA, PA  19107\r\nUSA",
+      "contractoraddress2": null,
+      "contractorcity": null,
+      "contractorstate": null,
+      "contractorzip": null,
+      "mostrecentinsp": null,
+      "opa_account_num": null,
+      "address": "502 WOOD ST",
+      "unit_type": "#",
+      "unit_num": "PARCELA",
+      "zip": "19106",
+      "censustract": "367",
+      "council_district": null,
+      "opa_owner": null,
+      "systemofrecord": "ECLIPSE",
+      "geocode_x": null,
+      "geocode_y": null,
+      "posse_jobid": "232766375"
+    }, {
+      "cartodb_id": 183292,
+      "the_geom": "0101000020E6100000C9A955EEEDC852C0BAC0D62B61FA4340",
+      "the_geom_webmercator": "0101000020110F00007A15115673E85FC196C4AFE0AA895241",
+      "objectid": 177978,
+      "permitnumber": "ZP-2020-000329",
+      "addressobjectid": "127930407",
+      "parcel_id_num": "510786",
+      "permittype": "ZONING",
+      "permitdescription": "ZONING PERMIT",
+      "commercialorresidential": "COMMERCIAL",
+      "typeofwork": "NEW CONSTRUCTION, ADDITION, GFA CHANGE",
+      "approvedscopeofwork": "FOR ERECTION OF A SEMI-DETACHED STRUCTURE (UTILIZES ZONING BONUSES: MIXED-INCOME HOUSING, PUBLIC SPACE, TRAIL BONUS, STORMWATER BONUS, RETAIL SPACE, GREEN BUILDING (THE LEED AGREEMENTS TO BE FINALIZED DURING THE BUILDING PERMIT PROCESS), AND PUBLIC ART BONUSES). SIZE AND LOCATION AS SHOWN ON APPLICATION /PLANS.",
+      "permitissuedate": "2021-08-06T13:33:51Z",
+      "status": "ISSUED",
+      "applicanttype": "PROFESSIONAL / TRADESPERSON",
+      "contractorname": "BLANK ROME LLP",
+      "contractoraddress1": "BLANK ROME LLP\r\n130 N 18TH ST\r\nONE LOGAN SQUARE\r\nPHILADELPHIA, PA  19103\r\nUSA",
+      "contractoraddress2": null,
+      "contractorcity": null,
+      "contractorstate": null,
+      "contractorzip": null,
+      "mostrecentinsp": null,
+      "opa_account_num": "885578580",
+      "address": "300 N CHRISTOPHER COLUMBUS BLVD",
+      "unit_type": null,
+      "unit_num": null,
+      "zip": "19106",
+      "censustract": "366",
+      "council_district": "1",
+      "opa_owner": "300 COLUMBUS LLC",
+      "systemofrecord": "ECLIPSE",
+      "geocode_x": 2700218.4552455,
+      "geocode_y": 237677.5851748,
+      "posse_jobid": "358350625"
+    }, {
+      "cartodb_id": 217263,
+      "the_geom": null,
+      "the_geom_webmercator": null,
+      "objectid": 211140,
+      "permitnumber": "CP-2020-004618",
+      "addressobjectid": "252074982",
+      "parcel_id_num": "Parcel C",
+      "permittype": "BUILDING",
+      "permitdescription": "COMMERCIAL BUILDING PERMIT",
+      "commercialorresidential": "COMMERCIAL",
+      "typeofwork": "NEW CONSTRUCTION",
+      "approvedscopeofwork": "FOR THE ERECTION OF ONE DETACHED STRUCTURE WITH WITH BALCONIES AND AMENITIES.  STRUCTURE FOR USE AS VACANT COMMERCIAL SPACE ON GROUND FLOOR (USE REGISTRATION PERMIT REQUIRED PRIOR TO OCCUPANCY) WITH MULTI-FAMILY HOUSEHOLD LIVING ( 273 DWELLING UNITS) FROM SECOND FLOOR THROUGH 23RD FLOORS. SPRINKLERED THROUGH PER NFPA 13. SEPARATE PERMITS REQUIRED FOR PLUMBING, MECHANICAL, ELECTRICAL AND FIRE SUPPRESSION.  A COVERED WALKWAY OR SIDEWALK CLOSURE SHALL BE REQUIRED WITHIN 10 FEET OF BUILDING FACADE IN ACCORDANCE WITH SECTION 3306 OF THE IBC. SEPARATE BUILDING AND/OR STREETS DEPARTMENT PERMITS ARE REQUIRED.",
+      "permitissuedate": "2020-11-06T00:00:00Z",
+      "status": "AMENDMENT APPLICANT REVISIONS",
+      "applicanttype": "PROFESSIONAL / TRADESPERSON",
+      "contractorname": "HUNTER ROBERTS HOLDINGS LLC",
+      "contractoraddress1": "HUNTER ROBERTS HOLDINGS LLC\r\n501 NW GRAND BLVD - 6TH FLOOR\r\nOKLAHOMA CITY, OK  73118\r\nUSA",
+      "contractoraddress2": null,
+      "contractorcity": null,
+      "contractorstate": null,
+      "contractorzip": null,
+      "mostrecentinsp": "2022-01-28T13:21:31Z",
+      "opa_account_num": null,
+      "address": "1701 RACE ST",
+      "unit_type": "#",
+      "unit_num": "PARCELC",
+      "zip": "19103",
+      "censustract": "125",
+      "council_district": null,
+      "opa_owner": null,
+      "systemofrecord": "ECLIPSE",
+      "geocode_x": null,
+      "geocode_y": null,
+      "posse_jobid": "267264396"
+    },  {
+      "cartodb_id": 341787,
+      "the_geom": "0101000020E6100000C9A955EEEDC852C0BAC0D62B61FA4340",
+      "the_geom_webmercator": "0101000020110F00007A15115673E85FC196C4AFE0AA895241",
+      "objectid": 345002,
+      "permitnumber": "CP-2021-005118",
+      "addressobjectid": "127930407",
+      "parcel_id_num": "510786",
+      "permittype": "BUILDING",
+      "permitdescription": "COMMERCIAL BUILDING PERMIT",
+      "commercialorresidential": "COMMERCIAL",
+      "typeofwork": "NEW CONSTRUCTION",
+      "approvedscopeofwork": "NEW CONSTRUCTION OF A 25 STORY HIGH-RISE STRUCTURE TO INCLUDE ACCESSORY ROOF DECK FOR USE AS SHELL COMMERCIAL SPACES (USE REGISTRATION & FIT-OUT PERMITS REQUIRED PRIOR TO OCCUPANCY) AND THREE HUNDRED SIXTY (360) DWELLING UNITS WITH ACCESSORY PARKING GARAGE AS PER APPROVED PLANS. BUILDING TO BE FULLY SPRINKLERED PER NFPA 13 AND INCLUDE STANDPIPES PER NFPA 14. *2018 IBC*\r\n**SEPARATE PERMITS REQUIRED FOR MEP & FIRE SUPPRESSION WORK**",
+      "permitissuedate": "2021-12-22T00:00:00Z",
+      "status": "ISSUED",
+      "applicanttype": "PROFESSIONAL / TRADESPERSON",
+      "contractorname": "HUNTER ROBERTS HOLDINGS LLC",
+      "contractoraddress1": "HUNTER ROBERTS HOLDINGS LLC\r\n501 NW GRAND BLVD - 6TH FLOOR\r\nOKLAHOMA CITY, OK  73118\r\nUSA",
+      "contractoraddress2": null,
+      "contractorcity": null,
+      "contractorstate": null,
+      "contractorzip": null,
+      "mostrecentinsp": "2022-01-06T13:44:34Z",
+      "opa_account_num": "885578580",
+      "address": "300 N CHRISTOPHER COLUMBUS BLVD",
+      "unit_type": null,
+      "unit_num": null,
+      "zip": "19106",
+      "censustract": "366",
+      "council_district": "1",
+      "opa_owner": "300 COLUMBUS LLC",
+      "systemofrecord": "ECLIPSE",
+      "geocode_x": 2700218.4552455,
+      "geocode_y": 237677.5851748,
+      "posse_jobid": "377905142"
+    }, {
+      "cartodb_id": 455008,
+      "the_geom": null,
+      "the_geom_webmercator": null,
+      "objectid": 456752,
+      "permitnumber": "CP-2020-001604",
+      "addressobjectid": "263040337",
+      "parcel_id_num": "Parcel A",
+      "permittype": "BUILDING",
+      "permitdescription": "COMMERCIAL BUILDING PERMIT",
+      "commercialorresidential": "COMMERCIAL",
+      "typeofwork": "NEW CONSTRUCTION",
+      "approvedscopeofwork": "NEW CONSTRUCTION OF A SIX (6) STORY STRUCTURE TO INCLUDE GROUND FLOOR PARKING GARAGE AND FIFTY (50) DWELLING UNITS ABOVE AS PER APPROVED PLANS. BUILDING TO UTILIZE HORIZONTAL SEPARATIONS TO CREATE TWO (2) SEPARATE BUILDINGS WITH TWO (2) DIFFERENT CONSTRUCTION TYPES (1ST FLOOR - TYPE IA AND 2ND THROUGH 6TH FLOORS - TYPE IIIB). FIRE RETARDANT TREATED STUDS AND SHEATHING REQUIRED FOR TYPE III CONSTRUCTION. BUILDING TO BE FULLY SPRINKLERED PER NFPA 13 AND INCLUDE STANDPIPES PER NFPA 14. FIRE WATCH REQUIRED PER CODE BULLETIN F-2001. *2018 IBC* \r\n**SEPARATE PERMITS REQUIRED FOR MEP & FIRE SUPPRESSION WORK**\r\n",
+      "permitissuedate": "2021-02-09T00:00:00Z",
+      "status": "ISSUED",
+      "applicanttype": "PROFESSIONAL / TRADESPERSON",
+      "contractorname": "STONEHENGE ADVISORS INC",
+      "contractoraddress1": "STONEHENGE ADVISORS INC\r\n1321 INTREPID AVENUE\r\nBLDG M7, STE 400\r\nPHILADELPHIA, PA  19112\r\nUSA",
+      "contractoraddress2": null,
+      "contractorcity": null,
+      "contractorstate": null,
+      "contractorzip": null,
+      "mostrecentinsp": "2021-02-24T14:00:40Z",
+      "opa_account_num": null,
+      "address": "502 WOOD ST",
+      "unit_type": "#",
+      "unit_num": "PARCELA",
+      "zip": "19106",
+      "censustract": "367",
+      "council_district": null,
+      "opa_owner": null,
+      "systemofrecord": "ECLIPSE",
+      "geocode_x": null,
+      "geocode_y": null,
+      "posse_jobid": "232764594"
+    }, {
+      "cartodb_id": 520398,
+      "the_geom": null,
+      "the_geom_webmercator": null,
+      "objectid": 523394,
+      "permitnumber": "CP-2021-007518",
+      "addressobjectid": "263040337",
+      "parcel_id_num": "Parcel A",
+      "permittype": "BUILDING",
+      "permitdescription": "COMMERCIAL BUILDING PERMIT",
+      "commercialorresidential": "COMMERCIAL",
+      "typeofwork": "NEW CONSTRUCTION",
+      "approvedscopeofwork": "NEW CONSTRUCTION OF A SIX (6) STORY STRUCTURE TO INCLUDE GROUND FLOOR PARKING GARAGE AND FIFTY (50) DWELLING UNITS ABOVE AS PER APPROVED PLANS. BUILDING TO UTILIZE HORIZONTAL SEPARATIONS TO CREATE TWO (2) SEPARATE BUILDINGS WITH TWO (2) DIFFERENT CONSTRUCTION TYPES (1ST FLOOR - TYPE IA AND 2ND THROUGH 6TH FLOORS - TYPE IIIB). FIRE RETARDANT TREATED STUDS AND SHEATHING REQUIRED FOR TYPE III CONSTRUCTION. BUILDING TO BE FULLY SPRINKLERED PER NFPA 13 AND INCLUDE STANDPIPES PER NFPA 14. FIRE WATCH REQUIRED PER CODE BULLETIN F-2001. *2018 IBC* \r\n**SEPARATE PERMITS REQUIRED FOR MEP & FIRE SUPPRESSION WORK**\r\n",
+      "permitissuedate": "2021-12-08T00:00:00Z",
+      "status": "ISSUED",
+      "applicanttype": "PROFESSIONAL / TRADESPERSON",
+      "contractorname": "TESTER CONSTRUCTION GROUP LLC",
+      "contractoraddress1": "TESTER CONSTRUCTION GROUP LLC\r\n1541 RIDGE AVE STE 1\r\nPHILADELPHIA, PA  19130\r\nUSA",
+      "contractoraddress2": null,
+      "contractorcity": null,
+      "contractorstate": null,
+      "contractorzip": null,
+      "mostrecentinsp": null,
+      "opa_account_num": null,
+      "address": "502 WOOD ST",
+      "unit_type": "#",
+      "unit_num": "PARCELA",
+      "zip": "19106",
+      "censustract": "367",
+      "council_district": null,
+      "opa_owner": null,
+      "systemofrecord": "ECLIPSE",
+      "geocode_x": null,
+      "geocode_y": null,
+      "posse_jobid": "404843994"
+    }
+  ],
+  "fields": {
+    "cartodb_id": {
+      "type": "number",
+      "pgtype": "int8"
+    },
+    "the_geom": {
+      "type": "geometry",
+      "wkbtype": "Unknown",
+      "dims": 2,
+      "srid": 4326
+    },
+    "the_geom_webmercator": {
+      "type": "geometry",
+      "wkbtype": "Unknown",
+      "dims": 2,
+      "srid": 3857
+    },
+    "objectid": {
+      "type": "number",
+      "pgtype": "int4"
+    },
+    "permitnumber": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "addressobjectid": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "parcel_id_num": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "permittype": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "permitdescription": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "commercialorresidential": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "typeofwork": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "approvedscopeofwork": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "permitissuedate": {
+      "type": "date",
+      "pgtype": "timestamp"
+    },
+    "status": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "applicanttype": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "contractorname": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "contractoraddress1": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "contractoraddress2": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "contractorcity": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "contractorstate": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "contractorzip": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "mostrecentinsp": {
+      "type": "date",
+      "pgtype": "timestamp"
+    },
+    "opa_account_num": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "address": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "unit_type": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "unit_num": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "zip": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "censustract": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "council_district": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "opa_owner": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "systemofrecord": {
+      "type": "string",
+      "pgtype": "text"
+    },
+    "geocode_x": {
+      "type": "number",
+      "pgtype": "numeric"
+    },
+    "geocode_y": {
+      "type": "number",
+      "pgtype": "numeric"
+    },
+    "posse_jobid": {
+      "type": "string",
+      "pgtype": "text"
+    }
+  },
+  "total_rows": 155
+}

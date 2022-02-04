@@ -19,11 +19,7 @@ class Command(BaseCommand):
         # Run json query in browser and save file to folder as 'phl_permits.json'
         # url = 'https://phl.carto.com/api/v2/sql?q=SELECT%20*%20FROM%20permits%20WHERE%20permittype%20LIKE%20%27BUILDING%27%20AND%20typeofwork=%27NEW%20CONSTRUCTION%27%20AND%20status=%27ISSUED%27'
 
-        # Reduced permit selection to downtown from last 5 years. File saved as 'phl_permits_downtown.json'
-        # 'https://phl.carto.com/api/v2/sql?q=SELECT%20*%20FROM%20permits%20WHERE%20permittype%20LIKE%20%27BUILDING%27%20AND%20typeofwork=%27NEW%20CONSTRUCTION%27%20AND%20status=%27ISSUED%27%20AND%20%27permitissuedate%27%20%3E%20%272017-01-01%27%20AND%20zip%20LIKE%20%2719103%27%20OR%20zip%20LIKE%20%2719102%27%20OR%20zip%20LIKE%20%2719107%27%20OR%20zip%20LIKE%20%2719106%27'
-
-
-        with open("phl_permits_new.json", 'r') as f:
+        with open("phl_permits.json", 'r') as f:
             data = json.loads(f.read())
 
         df = pd.json_normalize(data, record_path=["rows"])
@@ -61,7 +57,7 @@ class Command(BaseCommand):
 
         print("Checkpoint 2: Success")
 
-        # # Webscrap permit page for expiration date and valuation
+        # Webscrap permit page for expiration date and valuation
         expire_date =[]
         cost = []
 
@@ -74,28 +70,23 @@ class Command(BaseCommand):
 
             j = j + 1
 
+            expires_div = ('ExpirationDate_972087_' + id + '_sp')
+
+            cost_div = ('TotalProjectValue_988772_' + id +'_sp')
+
             url = ('https://eclipse.phila.gov/phillylmsprod/pub/lms/Default.aspx?PossePresentation=Public&PosseObjectId=' + id)
 
             url_contents = urllib.request.urlopen(url).read()
 
             soup = BeautifulSoup(url_contents, 'html.parser')
 
-            expires = soup.find("span", {"id": re.compile("(?=ExpirationDate)")}).text
-            print(expires)
-            expire_date = pd.to_datetime(expires)
+            expires = soup.find("span", {"id": expires_div}).text
+            expires = pd.to_datetime(expires)
 
-            try:
-                price = soup.find("span", {"id": re.compile("(?=ProjectValue)")}).text
-                print(price)
-            except:
-                price = '0.00'
+            price = soup.find("span", {"id": cost_div}).text
 
-            # Use regex to format addresses that list a range of house numbers (https://regex101.com/)
-            formatted_price = re.sub('[^0-9.]+', '', price)
-            print(formatted_price)
-
-            # expire_date.append(expires)
-            cost.append(formatted_price)
+            expire_date.append(expires)
+            cost.append(price)
 
 
             print("Checkpoint 2: completing ", j, id)
@@ -216,16 +207,16 @@ class Command(BaseCommand):
         # Save backup .csv file before submitting to database
         df.to_csv('phl_permits.csv', sep=';', index=False)
 
-        user = settings.DATABASES['default']['USER']
-        password = settings.DATABASES['default']['PASSWORD']
-        database_name = settings.DATABASES['default']['NAME']
-
-        # Retrieve database url
-        database_url = 'postgresql://{user}:{password}@localhost:5432/{database_name}'.format(user=user, password=password, database_name=database_name)
-
-        # Save to Postgres
-        engine = create_engine(database_url)
-        df.to_sql(Permit._meta.db_table, if_exists='append', con=engine,  index=False)
+        # user = settings.DATABASES['default']['USER']
+        # password = settings.DATABASES['default']['PASSWORD']
+        # database_name = settings.DATABASES['default']['NAME']
+        #
+        # # Retrieve database url
+        # database_url = 'postgresql://{user}:{password}@localhost:5432/{database_name}'.format(user=user, password=password, database_name=database_name)
+        #
+        # # Save to Postgres
+        # engine = create_engine(database_url)
+        # df.to_sql(Permit._meta.db_table, if_exists='append', con=engine,  index=False)
 
         print("Checkpoint 6: Success")
         print("Data Migration Successful")

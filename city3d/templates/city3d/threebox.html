@@ -65,7 +65,7 @@
                 </h2>
                 <div id="collapsePermits" class="accordion-collapse collapse" aria-labelledby="headingPermits" data-bs-parent="#accordionSidebar">
                   <div class="accordion-body">
-                    <h6>City Permit Number: <a href="{{ building.permit.link }}" class="nav-link text-truncate" target="_blank">{{ building.permit.city_project_id }}</a></h6>
+                    <h6>City Permit Number: <a href="{{ building.permit.link }}" class="nav-link text-truncate" target="_blank">{{ building.permit.permit_number }}</a></h6>
                   </div>
                 </div>
               </div>
@@ -176,14 +176,14 @@
                       units: 'meters',
                       rotation: { x: 180, y: 0, z: 0 }, //rotation
                       bbox: false,
-                      callback: '{{ permit.index }}',
+                      callback: '{{ permit.building.id }}',
                     }
 
 
                     tb.loadObj(options, function (model) {
                       let marker = model.setCoords( [ {{ permit.longitude }}, {{ permit.latitude }}, 20 ] );
 
-                      model.addTooltip('<a href="{{ permit.link }}" target="_blank" style="text-decoration: none;">Permit: {{ permit.project_id }}</a>', true);
+                      model.addTooltip('<a href="{{ permit.link }}" target="_blank" style="text-decoration: none;">{{ permit.building.name }}</a>', true);
 
                       model.addEventListener('SelectedChange', onSelectedChange, false);
 
@@ -200,15 +200,13 @@
                       units: 'meters',
                       rotation: { x: 180, y: 0, z: 0 }, //rotation
                       bbox: false,
-                      callback: '{{ permit.index }}',
+                      callback: '{{ permit.id }}',
                     }
 
 
                     tb.loadObj(options, function (model) {
                       let marker = model.setCoords( [ {{ permit.longitude }}, {{ permit.latitude }}, 20 ] );
-
-                      model.addTooltip('<a href="{{ permit.link }}" target="_blank" style="text-decoration: none;">Permit: {{ permit.project_id }}</a>', true);
-
+                      model.addTooltip('<a href="{{ permit.link }}" target="_blank" style="text-decoration: none;">Permit: {{ permit.permit_number }}</a>', true);
                       model.addEventListener('SelectedChange', onSelectedChange, false);
 
                       tb.add(marker);

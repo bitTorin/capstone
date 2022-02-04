@@ -21,15 +21,18 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               {% for list_city in cities %}
-                {% if list_city.state.initials == 'TX' %}
-                  <li><a class="dropdown-item" href="{% url 'hero' list_city.name %}">{{ list_city.name }}, {{ list_city.state.initials }}</a></li>
-                {% endif %}
+                <li><a class="dropdown-item" href="{% url 'hero' list_city.name %}">{{ list_city.name }}</a></li>
               {% endfor %}
             </ul>
             {% else %}
             <a class="nav-link dropdown-toggle btn" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Select
             </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              {% for list_city in cities %}
+                <li><a class="dropdown-item" href="{% url 'hero' list_city.name %}">{{ list_city.name }}</a></li>
+              {% endfor %}
+            </ul>
             {% endif %}
           </ul>
         </div>

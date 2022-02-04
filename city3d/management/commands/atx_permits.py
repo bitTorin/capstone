@@ -80,6 +80,12 @@ class Command(BaseCommand):
         # Add urls to dataframe for permit.link model class
         df.insert(13, "link", urls, True)
 
+        # Reformat expires_date
+        df["issue_date"] = pd.to_datetime(df["issue_date"])
+
+        # Reformat expires_date
+        df["expires_date"] = pd.to_datetime(df["expires_date"])
+
         user = settings.DATABASES['default']['USER']
         password = settings.DATABASES['default']['PASSWORD']
         database_name = settings.DATABASES['default']['NAME']
@@ -90,4 +96,6 @@ class Command(BaseCommand):
         # Save to Postgres (faster than 'to_sql' https://stackoverflow.com/questions/23103962/how-to-write-dataframe-to-postgres-table)
         engine = create_engine(database_url)
 
-        df.to_sql(Permit._meta.db_table, if_exists='replace', con=engine,  index=True)
+        # df.to_sql(Permit._meta.db_table, if_exists='append', con=engine,  index=False)
+
+        df.to_csv('atx_permits.csv', sep='\t', index=False)

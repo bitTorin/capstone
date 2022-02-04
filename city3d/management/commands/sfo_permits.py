@@ -118,8 +118,6 @@ class Command(BaseCommand):
         df.insert(13, "latitude", lats, True)
         df.insert(14, "longitude", longs, True)
 
-        print(df)
-
         user = settings.DATABASES['default']['USER']
         password = settings.DATABASES['default']['PASSWORD']
         database_name = settings.DATABASES['default']['NAME']
@@ -130,4 +128,4 @@ class Command(BaseCommand):
         # Save to Postgres (faster than 'to_sql' https://stackoverflow.com/questions/23103962/how-to-write-dataframe-to-postgres-table)
         engine = create_engine(database_url)
 
-        df.to_sql(Permit._meta.db_table, if_exists='append', con=engine,  index=True)
+        df.to_sql(Permit._meta.db_table, if_exists='append', con=engine,  index=False)

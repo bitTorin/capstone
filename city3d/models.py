@@ -1,14 +1,29 @@
+import os
 from django.db import models
 from django.db.models.fields.related import ForeignKey
 from django.core.files.storage import FileSystemStorage
+from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
 
-gltf_path = FileSystemStorage(location='/static/city3d/buildings/austin/gltf')
-img_path = FileSystemStorage(location='/static/city3d/buildings/austin/img')
+
+class MyStorage(FileSystemStorage):
+
+    def get_available_name(self, name, max_length=None):
+        if self.exists(name):
+            dir_name, file_name = os.path.split(name)
+            file_root, file_ext = os.path.splitext(file_name)
+
+            my_chars = ''  # The characters you want to append
+
+            name = os.path.join(dir_name, '{}_{}{}'.format(file_root, my_chars, file_ext))
+        return name
+
+# gltf_path = FileSystemStorage(location='/static/city3d/buildings/austin/gltf')
+# img_path = FileSystemStorage(location='/static/city3d/buildings/austin/img')
 
 class City(models.Model):
-    name = models.CharField(primary_key=True, max_length=64)
-    # state = models.ForeignKey('State', on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length=64)
+    state = models.CharField(max_length=2)
     viewport_lat = models.DecimalField(max_digits = 8, decimal_places = 6, blank=True)
     viewport_long = models.DecimalField(max_digits = 9, decimal_places = 6, blank=True)
 
@@ -19,25 +34,20 @@ class City(models.Model):
     def __str__(self):
         return f"{self.name}"
 
-class State(models.Model):
-    name = models.CharField(max_length=64)
-    initials = models.CharField(primary_key=True, max_length=2)
-
-    class Meta:
-        db_table = "states"
-
-    def __str__(self):
-        return f"{self.initials}"
-
 class Building(models.Model):
     name = models.CharField(max_length=64)
-    gltf = models.FileField(storage=gltf_path)
-    img = models.FileField(storage=img_path)
+    gltf = models.FileField(storage=MyStorage())
+    img = models.FileField(storage=MyStorage())
     img_cred = models.CharField(max_length=64, default='', blank=True)
     address = models.CharField(max_length=64)
-    latitude = models.DecimalField(max_digits = 10, decimal_places = 8, blank=True)
-    longitude = models.DecimalField(max_digits = 10, decimal_places = 8, blank=True)
+    latitude = models.DecimalField(max_digits = 20, decimal_places = 17, blank=True)
+    longitude = models.DecimalField(max_digits = 20, decimal_places = 17, blank=True)
     model_rotation = models.DecimalField(max_digits = 5, decimal_places = 2, default=0, null=True)
+    developer = models.CharField(max_length=64, default='', blank=True)
+    contractor = models.CharField(max_length=64, default='', blank=True)
+    architect = models.CharField(max_length=64, default='', blank=True)
+    permit = models.ForeignKey('Permit', on_delete=models.PROTECT, null=True, blank=True, related_name="permits")
+    city = models.ForeignKey('City', on_delete=models.PROTECT, null=True, blank=True)
 
     class Meta:
         db_table = "buildings"
@@ -51,6 +61,7 @@ class Headline(models.Model):
     publisher = models.CharField(max_length=64)
     link = models.URLField()
     img = models.URLField()
+    building = models.ForeignKey('Building', on_delete=models.PROTECT, null=True, blank=True, related_name="headlines")
 
     class Meta:
         db_table = "headlines"
@@ -59,26 +70,26 @@ class Headline(models.Model):
         return f"{self.title}"
 
 class Permit(models.Model):
-    index = models.IntegerField(primary_key=True)
     permit_type = models.CharField(max_length=20)
     permit_number = models.CharField(max_length=20)
     permit_class = models.CharField(max_length=20)
-    project_id = models.IntegerField()
-    issue_date = models.DateTimeField()
+    project_id = models.CharField(max_length=20)
+    issue_date = models.DateTimeField(null=True, blank=True)
     last_30_days = models.CharField(max_length=3)
     current_status = models.CharField(max_length=20)
-    expires_date = models.DateTimeField()
-    address = models.CharField(max_length=64)
+    expires_date = models.DateTimeField(null=True, blank=True)
+    address = models.CharField(max_length=64, null=True, blank=True)
     city = models.CharField(max_length=64)
     state = models.CharField(max_length=64)
     zip = models.IntegerField()
     link = models.URLField()
-    latitude = models.DecimalField(max_digits = 10, decimal_places = 8, blank=True)
-    longitude = models.DecimalField(max_digits = 10, decimal_places = 8, blank=True)
-    valuation = models.FloatField()
+    latitude = models.DecimalField(max_digits = 20, decimal_places = 17, blank=True)
+    longitude = models.DecimalField(max_digits = 20, decimal_places = 17, blank=True)
+    valuation = models.DecimalField(max_digits = 20, decimal_places = 2, default=0.00)
+    building = models.ForeignKey('Building', on_delete=models.PROTECT, null=True, blank=True, related_name="buildings")
 
     class Meta:
         db_table = "permits"
 
     def __str__(self):
-        return f"{self.index}"
+        return f"{self.permit_number}"

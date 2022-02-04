@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.conf import settings
 
-from .models import City, State, Building, Permit, Headline
+from .models import City, Building, Permit, Headline
 
 def index(request):
 
@@ -15,7 +15,7 @@ def index(request):
 def hero(request, city_name):
     city = City.objects.get(name = city_name)
 
-    return render( request, 'city3d/threebox.html', {
+    return render( request, 'city3d/city.html', {
         "city": city,
         "cities": City.objects.all().order_by('name'),
         "token": settings.MAPBOX_API,

@@ -1,5 +1,6 @@
 {% extends "city3d/layout.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block script %}
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -21,10 +22,10 @@
               <h4 class="offcanvas-title d-none d-sm-block" id="offcanvas"><b>{{ building.name }}</b></h4>
               <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
-          <div class="offcanvas-body px-0" style="overflow: auto">
-            <figure class="figure" style="padding-left: 1em;">
-              <img src="../../static/city3d/buildings/austin/img/{{ building.img }}" alt="{{ building.name }}" class="figure-img img-fluid rounded" width="300" height="200">
-              <figcaption class="figure-caption">Image: &copy {{ building.img_cred }}</figcaption>
+          <div class="offcanvas-body px-0" style="overflow: auto; margin-top: -1em;">
+            <figure class="figure text-center" align="center" style="padding-left: 1em;">
+              <img class="figure-img img-fluid rounded" src="../../static/city3d/buildings/{{ building.city }}/img/{{ building.img }}" alt="{{ building.name }}" width="300" height="200" style="max-height:100%;">
+              <figcaption class="figure-caption text-center">Image: &copy {{ building.img_cred }}</figcaption>
             </figure>
             <div class="accordion" id="accordionSidebar">
               <div class="accordion-item">
@@ -35,10 +36,9 @@
                 </h2>
                 <div id="collapseInfo" class="accordion-collapse collapse show" aria-labelledby="headingInfo" data-bs-parent="#accordionSidebar">
                   <div class="accordion-body">
-                    <h6>{{ building.permit.current_status }}</h6>
-                    <h6>Location</h6>
-                    <h6>{{ building.permit.expires_date|date:"M Y" }}</h6>
-                    <h6>${{ building.permit.valuation|floatformat:"0" }}</h6>
+                    <h6><b>Status:</b> {{ building.permit.current_status|title }}</h6>
+                    <h6><b>Est. Completion Date:</b> {{ building.permit.expires_date|date:"M Y" }}</h6>
+                    <h6><b>Project Cost:</b> ${{ building.permit.valuation|intcomma }}</h6>
                   </div>
                 </div>
               </div>
@@ -50,10 +50,9 @@
                 </h2>
                 <div id="collapseTeam" class="accordion-collapse collapse" aria-labelledby="headingTeam" data-bs-parent="#accordionSidebar">
                   <div class="accordion-body">
-                    <h6>Developer</h6>
-                    <h6>General Contractor</h6>
-                    <h6>Architect</h6>
-                    <h6>Engineers</h6>
+                    <h6><b>Developer: </b> {{ building.developer }}</h6>
+                    <h6><b>General Contractor: </b>{{ building.contractor }}</h6>
+                    <h6><b>Architect: </b>{{ building.architect }}</h6>
                   </div>
                 </div>
               </div>
@@ -65,7 +64,7 @@
                 </h2>
                 <div id="collapsePermits" class="accordion-collapse collapse" aria-labelledby="headingPermits" data-bs-parent="#accordionSidebar">
                   <div class="accordion-body">
-                    <h6>City Permit Number: <a href="{{ building.permit.link }}" class="nav-link text-truncate" target="_blank">{{ building.permit.city_project_id }}</a></h6>
+                    <h6>City Permit Number: <a href="{{ building.permit.link }}" class="nav-link text-truncate" target="_blank">{{ building.permit.permit_number }}</a></h6>
                   </div>
                 </div>
               </div>
@@ -77,16 +76,14 @@
                 </h2>
                 <div id="collapseNews" class="accordion-collapse collapse" aria-labelledby="headingNews" data-bs-parent="#accordionSidebar">
                   <div class="accordion-body">
-                    {% for headline in headlines %}
-                      {% if headline.building == building %}
-                        <div class="card-body">
-                          <!-- <img class="img-fluid rounded" src="{{ headline.img }}" style="display: inline-block; height: 5em; width: 5em"> -->
-                          <span class="card-text" style="display: inline-block;"><a href="{{ headline.link }}" target="_blank" style="text-decoration: none; color: black; font-weight: bold">{{ headline.title }}</a></span>
-                          <span class="card-text text-muted" style="display: inline-block;">
-                            <strong>{{ headline.publisher }}</strong> {{ headline.datetime|date:"M d, 'y" }}
-                          </span>
-                        </div>
-                      {% endif %}
+                    {% for headline in building.headlines.all %}
+                      <div class="card-body">
+                        <!-- <img class="img-fluid rounded" src="{{ headline.img }}" style="display: inline-block; height: 5em; width: 5em"> -->
+                        <span class="card-text" style="display: inline-block;"><a href="{{ headline.link }}" target="_blank" style="text-decoration: none; color: black; font-weight: bold; overflow: hidden">{{ headline.title }}</a></span>
+                        <span class="card-text text-muted" style="display: inline-block;">
+                          <strong>{{ headline.publisher }}</strong> {{ headline.datetime|date:"M d, 'y" }}
+                        </span>
+                      </div>
                     {% empty %}
                       <span>No recent news</span>
                     {% endfor %}
@@ -124,8 +121,8 @@
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/light-v10',
-            center: [{{city.viewport_long}}, {{city.viewport_lat}}],
-            zoom: 16,
+            center: [{{ city.viewport_long }}, {{ city.viewport_lat }}],
+            zoom: 15,
             pitch: 60,
             antialias: true,
             heading: 30,
@@ -154,104 +151,129 @@
     		map.on('style.load', function () {
     			init();
 
-                map.addLayer(createCompositeLayer());
+          map.addLayer(createCompositeLayer());
 
-                map.addLayer({
-                    id: 'active-construction-3d',
-                    type: 'custom',
-                    renderingMode: '3d',
-                    minzoom: '15',
-                    onAdd: function (map, mbxContext) {
+          map.addLayer({
+            id: 'active-construction-3d',
+            type: 'custom',
+            renderingMode: '3d',
+            minzoom: 12,
+            onAdd: function (map, mbxContext) {
 
-                        tb.altitudeStep = 1;
+              tb.altitudeStep = 1;
 
-                        {% for permit in permits %}
+              {% for permit in permits %}
 
-                          var options = {
-                              obj: '../../static/city3d/buildings/base/pin.gltf',
-                              type: 'gltf',
-                              scale: 10,
-                              units: 'meters',
-                              rotation: { x: 180, y: 0, z: 0 }, //rotation
-                              bbox: false,
-                              callback: '{{ permit.index }}',
+                  {% if permit.building %}
 
-                          }
-
-
-                          tb.loadObj(options, function (model) {
-                              let marker = model.setCoords( [ {{ permit.longitude }}, {{ permit.latitude }}, 20 ] );
-                              {% if permit.building %}
-        						            model.addTooltip('{{ permit.building.name }}', true);
-                              {% else %}
-                                model.addTooltip('<a href="{{ permit.link }}" target="_blank" style="text-decoration: none;">Permit: {{ permit.project_id }}</a>', true);
-                              {% endif %}
-                              model.addEventListener('SelectedChange', onSelectedChange, false);
-
-                              tb.add(marker);
-
-                          })
-
-                        {% endfor %}
-
-                    },
-
-                    render: function (gl, matrix) {
-                        tb.update();
+                    var options = {
+                      obj: '../../static/city3d/buildings/base/pin.gltf',
+                      type: 'gltf',
+                      scale: 10,
+                      units: 'meters',
+                      rotation: { x: 180, y: 0, z: 0 }, //rotation
+                      bbox: false,
+                      callback: '{{ permit.building.id }}',
                     }
-                });
 
-            });
 
-            function createCompositeLayer() {
-                let layer = {
-                    'id': names.compositeLayer,
-                    'source': names.compositeSource,
-                    'source-layer': names.compositeSourceLayer,
-                    'filter': ["all",
-                      ['!=', 'name', "The Independent"],
-                      ['!=', 'building', "516271470"],
-                      ['==', 'extrude', 'true'],
-                      ['!=', 'type', 'construction'],
+                    tb.loadObj(options, function (model) {
+                      let marker = model.setCoords( [ {{ permit.longitude }}, {{ permit.latitude }}, 20 ] );
+
+                      model.addTooltip('<a href="{{ permit.link }}" target="_blank" style="text-decoration: none;">{{ permit.building.name }}</a>', true);
+
+                      model.addEventListener('SelectedChange', onSelectedChange, false);
+
+                      tb.add(marker);
+
+                    });
+
+                  {% else %}
+
+                    var options = {
+                      obj: '../../static/city3d/buildings/base/pin_blue.gltf',
+                      type: 'gltf',
+                      scale: 10,
+                      units: 'meters',
+                      rotation: { x: 180, y: 0, z: 0 }, //rotation
+                      bbox: false,
+                      callback: '{{ permit.id }}',
+                    }
+
+
+                    tb.loadObj(options, function (model) {
+                      let marker = model.setCoords( [ {{ permit.longitude }}, {{ permit.latitude }}, 20 ] );
+                      model.addTooltip('<a href="{{ permit.link }}" target="_blank" style="text-decoration: none;">Permit: {{ permit.permit_number }}</a>', true);
+                      model.addEventListener('SelectedChange', onSelectedChange, false);
+
+                      tb.add(marker);
+
+                    });
+
+                  {% endif %}
+
+              {% endfor %}
+
+            },
+
+            render: function (gl, matrix) {
+                tb.update();
+            },
+
+          });
+
+
+        });
+
+        function createCompositeLayer() {
+            let layer = {
+                'id': names.compositeLayer,
+                'source': names.compositeSource,
+                'source-layer': names.compositeSourceLayer,
+                'filter': ["all",
+                  ['!=', 'name', "The Independent"],
+                  ['!=', 'building', "516271470"],
+                  ['==', 'extrude', 'true'],
+                  ['!=', 'type', 'construction'],
+                ],
+                'type': 'fill-extrusion',
+                'minzoom': minZoom,
+                'paint': {
+                    'fill-extrusion-color':
+                        [
+                            'case',
+                            ['boolean', ['feature-state', 'select'], false],
+                            "lightgreen",
+                            ['boolean', ['feature-state', 'hover'], false],
+                            "lightblue",
+                            '#aaa'
+                        ],
+
+                    // use an 'interpolate' expression to add a smooth transition effect to the
+                    // buildings as the user zooms in
+                    'fill-extrusion-height': [
+                        'interpolate',
+                        ['linear'],
+                        ['zoom'],
+                        minZoom,
+                        0,
+                        minZoom + 0.05,
+                        ['get', 'height']
                     ],
-                    'type': 'fill-extrusion',
-                    'minzoom': minZoom,
-                    'paint': {
-                        'fill-extrusion-color':
-                            [
-                                'case',
-                                ['boolean', ['feature-state', 'select'], false],
-                                "lightgreen",
-                                ['boolean', ['feature-state', 'hover'], false],
-                                "lightblue",
-                                '#aaa'
-                            ],
-
-                        // use an 'interpolate' expression to add a smooth transition effect to the
-                        // buildings as the user zooms in
-                        'fill-extrusion-height': [
-                            'interpolate',
-                            ['linear'],
-                            ['zoom'],
-                            minZoom,
-                            0,
-                            minZoom + 0.05,
-                            ['get', 'height']
-                        ],
-                        'fill-extrusion-base': [
-                            'interpolate',
-                            ['linear'],
-                            ['zoom'],
-                            minZoom,
-                            0,
-                            minZoom + 0.05,
-                            ['get', 'min_height']
-                        ],
-                        'fill-extrusion-opacity': 0.6
-                    }
-                };
-                return layer;
-            }
+                    'fill-extrusion-base': [
+                        'interpolate',
+                        ['linear'],
+                        ['zoom'],
+                        minZoom,
+                        0,
+                        minZoom + 0.05,
+                        ['get', 'min_height']
+                    ],
+                    'fill-extrusion-opacity': 0.6
+                }
+            };
+            return layer;
+        }
 
     		function createLabelIcon(text) {
     			let popup = document.createElement('div');

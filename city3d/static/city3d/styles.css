@@ -16,8 +16,7 @@ body {
   z-index: 0;
 }
 
-
-#map2 {
+#homepage_map {
   position: absolute;
   top: 0;
   bottom: 0;
