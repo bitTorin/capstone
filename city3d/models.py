@@ -5,22 +5,6 @@ from django.core.files.storage import FileSystemStorage
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
 
-
-class MyStorage(FileSystemStorage):
-
-    def get_available_name(self, name, max_length=None):
-        if self.exists(name):
-            dir_name, file_name = os.path.split(name)
-            file_root, file_ext = os.path.splitext(file_name)
-
-            my_chars = ''  # The characters you want to append
-
-            name = os.path.join(dir_name, '{}_{}{}'.format(file_root, my_chars, file_ext))
-        return name
-
-# gltf_path = FileSystemStorage(location='/static/city3d/buildings/austin/gltf')
-# img_path = FileSystemStorage(location='/static/city3d/buildings/austin/img')
-
 class City(models.Model):
     name = models.CharField(max_length=64)
     state = models.CharField(max_length=2)
@@ -36,7 +20,6 @@ class City(models.Model):
 
 class Building(models.Model):
     name = models.CharField(max_length=64)
-    gltf = models.FileField(storage=MyStorage())
     img = models.FileField(storage=MyStorage())
     img_cred = models.CharField(max_length=64, default='', blank=True)
     address = models.CharField(max_length=64)

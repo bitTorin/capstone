@@ -27,19 +27,12 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.getenv('DEBUG'))
 
-# Your access token can be found at: https://cesium.com/ion/tokens.
-# This is the default access token from your ion account
-CESIUM = os.environ.get('CESIUM')
-
 # SOCRATA app token for json api requests
 APP_TOKEN = os.environ.get('APP_TOKEN')
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
-# Google Maps API
-MAPS_API = os.environ.get('MAPS_API')
-
-# # Mapbox API
+# Mapbox API
 MAPBOX_API = os.environ.get('MAPBOX_API')
 
 ALLOWED_HOSTS = []
@@ -107,8 +100,6 @@ DATABASES = {
     },
 }
 
-# DATABASE_ROUTERS = ['',]
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -142,8 +133,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -154,14 +143,5 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-# LEAFLET_CONFIG = {
-#     "DEFAULT_CENTER": ( 30.2, -97.7),
-#     "DEFAULT_ZOOM": 10,
-#     "MAX_ZOOM": 20,
-#     "MIN_ZOOM": 3,
-#     "SCALE": 'both',
-#     "ATTRIBUTION_PREFIX": 'City3D',
-# }
 #
 # GDAL_LIBRARY_PATH = 'C:/Program Files/GDAL/gdal303.dll'
