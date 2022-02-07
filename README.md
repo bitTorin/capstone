@@ -22,16 +22,16 @@ Before running our application please ensure you have the latest versions of `py
 
 Clone this repository:
 
-	> git clone https://github.com/bitTorin/capstone.git
+	git clone https://github.com/bitTorin/capstone.git
 
 Create own virtual environment:
 
-	> python 3 -m venv venv
-	> source venv/bin/activate
+	python 3 -m venv venv
+	source venv/bin/activate
 
 Install project requirements:
 
-	> pip install -r requirements.txt
+	pip install -r requirements.txt
 
 ### Step 2: Define custom variables
 
@@ -39,21 +39,21 @@ In the base directory of our project folder, create a file titled `.env`. This s
 
 In the `.env` file copy and paste the following lines:
 
-	> `#SECURITY WARNING: keep the secret key used in production secret!`
-	> `SECRET_KEY=<insert security key here>`
-	>
-	> `#SECURITY WARNING: don't run with debug turned on in production!`
-	> `DEBUG=True`
-	>
-	> `#SOCRATA App Token`
-	> `APP_TOKEN=<insert api key here>`
-	>
-	> `#MAPBOX App Token`
-	> `MAPBOX_API=<insert api key here>`
+	#SECURITY WARNING: keep the secret key used in production secret!
+	SECRET_KEY=<insert security key here>
+
+	#SECURITY WARNING: don't run with debug turned on in production!
+	DEBUG=True
+
+	#SOCRATA App Token
+	APP_TOKEN=<insert api key here>
+
+	#MAPBOX App Token
+	MAPBOX_API=<insert api key here>
 
 Now, we will generate a custom Django security key for you to run this application. In the terminal change your directory to this project's capstone directory and run the following command:
 
-	> `python manage.py security_key`
+	python manage.py security_key
 
 The terminal will print a unique security key for you to copy. Paste the newly generated key into the `.env` file at the `SECURITY_KEY` variable.
 
@@ -63,8 +63,8 @@ First, go to [Mapbox](https://account.mapbox.com/auth/signup/) to create an acco
 
 Second, go to [Socrata](https://evergreen.data.socrata.com/signup) and create an account. This account will be used to access a city's open data platform for building permits. After creating your account, access your API dashboard via `Edit Profile > Developer Settings`. Here you will create an App token. Sample name and description attributes might be:
 
-	> Name: City3d
-	> Description: API request for issued construction permits for various cities
+	Name: City3d
+	Description: API request for issued construction permits for various cities
 
 Now that your token is created, we will copy and paste the `App Token` into the `.env` file.
 
@@ -74,13 +74,13 @@ Great, all of our custom variables have been defined!
 
 Now it is time to launch our application. In your terminal, ensure your are in the projects base `capstone` directory and run the following commands. Please complete the prompts for the superuser:
 
-	> `python manage.py makemigrations`
-	>
-	> `python manage.py migrate`
-	>
-	> `python manage.py createsuperuser`
-	>
-	> `python manage.py runserver`
+	python manage.py makemigrations
+
+	python manage.py migrate
+
+	python manage.py createsuperuser
+
+	python manage.py runserver
 
 Now in your web browser, access the application at `127.0.0.1:8000`. You should see a base map of the United States fill the webpage. If not, double check that your API keys are set up properly!  
 
@@ -89,15 +89,15 @@ Now in your web browser, access the application at `127.0.0.1:8000`. You should 
 
 Access the Django admin via `127.0.0.1:8000/admin`. Here we will add your desired cities to the `Cities` model. For purposes of this tutorial add the following entries:
 
-	> Name: Austin
-	> State: TX
-	> Viewport lat: 30.258995
-	> Viewport long: -97.746332
-	>
-	> Name: San Francisco
-	> State: CA
-	> Viewport lat: 37.783790
-	> Viewport long: -122.398953
+	Name: Austin
+	State: TX
+	Viewport lat: 30.258995
+	Viewport long: -97.746332
+
+	Name: San Francisco
+	State: CA
+	Viewport lat: 37.783790
+	Viewport long: -122.398953
 
 Afterwards, navigate back to the index page (`127.0.0.1:8000`)and you should be able to see both cities added to base map with pins. Clicking on the pin will create a popup with that city's name. Now click on the city name within the popup and the page will redirect you to a 3D map of that city. Toggling between cities is also now accessible via the dropdown menu at the top left corner of the map.  
 
@@ -107,8 +107,8 @@ Next we will add the issued construction permits to our database for both of the
 
 In the terminal, stop the web application by typing `crtl + c`. Next, run the following two commands:
 
-	> `python manage.py atx_permits`
-	> `python manage.py sfo_permits`
+	python manage.py atx_permits
+	python manage.py sfo_permits
 
 After the commands have completed we can relaunch the application by typing `python manage.py runserver`.
 
@@ -120,15 +120,15 @@ Congratulations, you have successfully completed the initial installation of the
 
 In this step, we are going to identify a specific building that is under construction and aggregate the data into one entry. Via the Django Admin interface, go to the `Buildings` Model and click `Add Building`. For this tutorial enter the following attributes:
 
-	> Name: Block 185
-	> Img: "Block_185.jpg" (located in `capstone\city3d\static\city3d\buildings\Austin\img`)
-	> Img Cred: Pelli Clarke Pelli, STG Design, Trammell Crow Company
-	> Address: 601 W 2nd St
-	> Developer: Trammell Crow Company
-	> Contractor: DPR Construction
-	> Architect: Pelli Clarke Pelli, STG Design,
-	> Permit: 2020-071590 BP
-	> City: Austin
+	Name: Block 185
+	Img: "Block_185.jpg" (located in `capstone\city3d\static\city3d\buildings\Austin\img`)
+	Img Cred: Pelli Clarke Pelli, STG Design, Trammell Crow Company
+	Address: 601 W 2nd St
+	Developer: Trammell Crow Company
+	Contractor: DPR Construction
+	Architect: Pelli Clarke Pelli, STG Design,
+	Permit: 2020-071590 BP
+	City: Austin
 
 Once saved, we will also need to link to this building via the appropriate permit model instance. Navigate to the Permits admin subfolder and search for `2020-071590 BP` as defined in the entry above. Now click on the `id` for that entry to edit that permit instance and select `Block 185` in the `Building` field.
 
@@ -138,13 +138,13 @@ Now when you navigate back to `127.0.0.1:8000/city/Austin`, the permit associate
 
 Navigate back to the Django admin interface and add a new `Headline`. For this tutorial, enter the following:
 
-	> Datetime: 2021-07-22
-	>	  			 14:13:30
-	> Title: Block 185, Austin’s New ‘Google Tower,’ Officially Topped Out Downtown
-	> Publisher: Towers.net
-	> Link: https://austin.towers.net/block-185-austins-new-google-tower-officially-topped-out-downtown/
-	> Img: https://austin.towers.net/wp-content/uploads/sites/19/block_185_topping_out_feature_1-2048x1408.jpg
-	> Building: Block 185
+	Datetime: 2021-07-22
+			14:13:30
+	Title: Block 185, Austin’s New ‘Google Tower,’ Officially Topped Out Downtown
+	Publisher: Towers.net
+	Link: https://austin.towers.net/block-185-austins-new-google-tower-officially-topped-out-downtown/
+	Img: https://austin.towers.net/wp-content/uploads/sites/19/block_185_topping_out_feature_1-2048x1408.jpg
+	Building: Block 185
 
 Once saved, you can reload the website to `127.0.0.1:8000/city/Austin` and click on the red pin titled `Block 185`. The sidebar will pop up and you can now find the article featured within the `Recent News` section.
 
