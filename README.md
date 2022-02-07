@@ -2,7 +2,7 @@
 
 ## Intro
 
-Welcome to City3D, a capstone project for CS50's Web Programming course. For this project, I focused on creating an accessible interface for citizens to view active construction projects in their city in a 3D environment. Currently, most construction dashboards rely on a standard 2D map and require a lot of additional web browsing to view the full picture of a building’s construction status. Renderings of the building, cost, competition date, and project updates are often found via disjointed information sources. City3D attempts to consolidate that information into a centralized dashboard improving the user’s experience journeying into the world of architecture and construction. As an architect, I felt that building this consumer facing application, through the utilization of emerging WebGL technologies, could alleviate many of the pain points that a citizen feels when they try to stay up to date with their locality’s current architectural projects.
+Welcome to City3D, a capstone project for CS50's Web Programming course. For this project, I focused on creating an accessible interface for citizens to view active construction projects in their city in a 3D environment. Currently, most construction dashboards rely on a standard 2D map and require a lot of additional web browsing to view the full picture of a building’s construction status. Renderings of the building, cost, competition date, and project updates are often found via disjointed information pipelines. City3D attempts to consolidate that information into a centralized dashboard, improving the user’s experience as they journey into the world of architecture and construction. As an architect, I felt that building this consumer facing application, through the utilization of emerging WebGL technologies, could alleviate many of the pain points that a citizen feels when they try to stay up to date with their locality’s current architectural projects.
 
 ## Distinctiveness and Complexity
 
@@ -139,7 +139,7 @@ Now when you navigate back to `127.0.0.1:8000/city/Austin`, the permit associate
 Navigate back to the Django admin interface and add a new `Headline`. For this tutorial, enter the following:
 
 	Datetime: 2021-07-22
-			14:13:30
+		14:13:30
 	Title: Block 185, Austin’s New ‘Google Tower,’ Officially Topped Out Downtown
 	Publisher: Towers.net
 	Link: https://austin.towers.net/block-185-austins-new-google-tower-officially-topped-out-downtown/
