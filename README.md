@@ -28,7 +28,7 @@ capstone
 │	└── wsgi.py
 ├── city3d
 │	├── management/commands
-│ │ ├── *atx_permits.py (Retrieve JSON API data from Socrata, convert to pandas dataframe and upload to project database)
+│	│	├── *atx_permits.py (Retrieve JSON API data from Socrata, convert to pandas dataframe and upload to project database)
 │	│	├── *security_key.py (Generate new Django security key for new users)
 │	│	└── *sfo_permits.py (Retrieve JSON API data from Socrata, convert to pandas dataframe and upload to project database)
 │	├── migrations
