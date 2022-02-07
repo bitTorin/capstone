@@ -21,31 +21,35 @@ Before running our application please ensure you have the latest versions of `py
 ### Step 1: Set up project
 
 Clone this repository:
-> git clone https://github.com/bitTorin/capstone.git
+
+	> git clone https://github.com/bitTorin/capstone.git
 
 Create own virtual environment:
-> python 3 -m venv venv
-> source venv/bin/activate
+
+	> python 3 -m venv venv
+	> source venv/bin/activate
 
 Install project requirements:
-> pip install -r requirements.txt
+
+	> pip install -r requirements.txt
 
 ### Step 2: Define custom variables
 
 In the base directory of our project folder, create a file titled `.env`. This should be in the same subdirectory as our `manage.py` file.
 
 In the `.env` file copy and paste the following lines:
-	> # SECURITY WARNING: keep the secret key used in production secret!
-	> SECRET_KEY=<insert security key here>
+
+	> `#SECURITY WARNING: keep the secret key used in production secret!`
+	> `SECRET_KEY=<insert security key here>`
 	>
-	> # SECURITY WARNING: don't run with debug turned on in production!
-	> DEBUG=True
+	> `#SECURITY WARNING: don't run with debug turned on in production!`
+	> `DEBUG=True`
 	>
-	> # SOCRATA App Token
-	> APP_TOKEN=<insert api key here>
+	> `#SOCRATA App Token`
+	> `APP_TOKEN=<insert api key here>`
 	>
-	> # MAPBOX App Token
-	> MAPBOX_API=<insert api key here>
+	> `#MAPBOX App Token`
+	> `MAPBOX_API=<insert api key here>`
 
 Now, we will generate a custom Django security key for you to run this application. In the terminal change your directory to this project's capstone directory and run the following command:
 
