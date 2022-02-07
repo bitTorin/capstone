@@ -2,8 +2,21 @@ import os
 from django.db import models
 from django.db.models.fields.related import ForeignKey
 from django.core.files.storage import FileSystemStorage
-from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
+
+img_path = FileSystemStorage(location='/static/city3d/buildings/austin/img')
+
+class MyStorage(FileSystemStorage):
+
+    def get_available_name(self, name, max_length=None):
+        if self.exists(name):
+            dir_name, file_name = os.path.split(name)
+            file_root, file_ext = os.path.splitext(file_name)
+
+            # my_chars = ''  # The characters you want to append
+
+            name = os.path.join(dir_name, '{}{}'.format(file_root, file_ext))
+        return name
 
 class City(models.Model):
     name = models.CharField(max_length=64)
@@ -23,9 +36,6 @@ class Building(models.Model):
     img = models.FileField(storage=MyStorage())
     img_cred = models.CharField(max_length=64, default='', blank=True)
     address = models.CharField(max_length=64)
-    latitude = models.DecimalField(max_digits = 20, decimal_places = 17, blank=True)
-    longitude = models.DecimalField(max_digits = 20, decimal_places = 17, blank=True)
-    model_rotation = models.DecimalField(max_digits = 5, decimal_places = 2, default=0, null=True)
     developer = models.CharField(max_length=64, default='', blank=True)
     contractor = models.CharField(max_length=64, default='', blank=True)
     architect = models.CharField(max_length=64, default='', blank=True)

@@ -20,6 +20,6 @@ def hero(request, city_name):
         "cities": City.objects.all().order_by('name'),
         "token": settings.MAPBOX_API,
         "buildings": Building.objects.all(),
-        "permits": Permit.objects.all(),
+        "permits": Permit.objects.filter(city=city),
         "headlines": Headline.objects.all().order_by('-datetime')
     })

@@ -75,10 +75,14 @@ class Command(BaseCommand):
 
         # Manually create list of urls
         vals = df['project_id'].tolist()
-        urls = ["https://abc.austintexas.gov/web/permit/public-search-other?t_detail=1&t_selected_folderrsn=" + val for val in vals]
+        urls = ["https://abc.austintexas.gov/web/permit/public-search-other?t_related-folder=1&t_selected_folderrsn=" + val for val in vals]
 
         # Add urls to dataframe for permit.link model class
         df.insert(13, "link", urls, True)
+
+        # Convert to title case
+        df['address'] = df['address'].str.title()
+        df['city'] = df['city'].str.title()
 
         # Reformat expires_date
         df["issue_date"] = pd.to_datetime(df["issue_date"])
@@ -86,16 +90,16 @@ class Command(BaseCommand):
         # Reformat expires_date
         df["expires_date"] = pd.to_datetime(df["expires_date"])
 
-        user = settings.DATABASES['default']['USER']
-        password = settings.DATABASES['default']['PASSWORD']
+        # Remove additional permits at same location, permits will be found when visiting linked url
+        df = df.drop_duplicates(subset=['latitude', 'longitude'], keep='last')
+
+        # Database info
         database_name = settings.DATABASES['default']['NAME']
+        database_url = 'sqlite:///{}'.format(database_name)
 
-        # Retrieve database url
-        database_url = 'postgresql://{user}:{password}@localhost:5432/{database_name}'.format(user=user, password=password, database_name=database_name)
-
-        # Save to Postgres (faster than 'to_sql' https://stackoverflow.com/questions/23103962/how-to-write-dataframe-to-postgres-table)
+        # Save to database
         engine = create_engine(database_url)
 
-        # df.to_sql(Permit._meta.db_table, if_exists='append', con=engine,  index=False)
+        df.to_sql(Permit._meta.db_table, if_exists='append', con=engine,  index=False)
 
-        df.to_csv('atx_permits.csv', sep='\t', index=False)
+        # df.to_csv('atx_permits.csv', sep='\t', index=False)

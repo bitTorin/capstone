@@ -28,12 +28,13 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 DEBUG = str(os.getenv('DEBUG'))
 
 # SOCRATA app token for json api requests
-APP_TOKEN = os.environ.get('APP_TOKEN')
+APP_TOKEN = str(os.getenv('APP_TOKEN'))
 
-DATABASE_URL = os.environ.get('DATABASE_URL')
+# Keep database information confidential
+DATABASE_URL = str(os.getenv('DATABASE_URL'))
 
 # Mapbox API
-MAPBOX_API = os.environ.get('MAPBOX_API')
+MAPBOX_API = str(os.getenv('MAPBOX_API'))
 
 ALLOWED_HOSTS = []
 
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -86,17 +88,9 @@ WSGI_APPLICATION = 'capstone.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # },
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'city3d',
-        'USER': 'postgres',
-        'PASSWORD': 'Austin2019',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     },
 }
 
@@ -142,6 +136,3 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-#
-# GDAL_LIBRARY_PATH = 'C:/Program Files/GDAL/gdal303.dll'

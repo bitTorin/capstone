@@ -9,7 +9,7 @@ class StateAdmin(admin.ModelAdmin):
     list_display = ( "name", "initials")
 
 class BuildingAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "address", "gltf", "img", "img_cred", "latitude", "longitude")
+    list_display = ("id", "name", "address", "img", "img_cred")
 
 class PermitAdmin(admin.ModelAdmin):
     list_display = ("id", "permit_type", "permit_number", "permit_class", "project_id", "issue_date", "last_30_days", "current_status", "expires_date", "address", "city", "state", "zip", "link", "latitude", "longitude", "valuation")
