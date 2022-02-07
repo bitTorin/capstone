@@ -12,7 +12,7 @@ In order to obtain the permit data that is displayed within the application, I a
 
 In completing this capstone, I’ve succeeding in building a mobile responsive application that relies on the model framework of a Django backend to store the permit information for hundreds of active construction permits. It also demonstrates a wide array of Javascript functionalities on the front end through the use of the Three.JS WebGL framework and event triggers on objects actions.
 
-I hope you find this web application to be helpful. Thank you to the full CS50 team for creating this course, it has been full of learning and discovery! Below are a series of startup instructions to get the web application running locally. Good luck!
+I hope you find this web application to be helpful. Thank you to the full CS50 team for creating this course, it has been full of learning and discovery! Below are a series of startup instructions to get the web application running locally.
 
 ## Startup Instructions
 
