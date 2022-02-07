@@ -14,6 +14,56 @@ In completing this capstone, I’ve succeeding in building a mobile responsive a
 
 I hope you find this web application to be helpful. Thank you to the full CS50 team for creating this course, it has been full of learning and discovery! Below are a series of startup instructions to get the web application running locally.
 
+## Project Files
+
+Complete project file tree outlined below. User generated files are highlighted in **bold** with a *description* afterwards.
+
+```
+capstone
+├── capstone
+│		├── _init_.py
+│		├── asgi.py
+│		├── settings.py
+│		├── urls.py
+│		└── wsgi.py
+├── city3d
+│   ├── management/commands
+│   │   ├── **atx_permits.py** (*Retrieve JSON API data from Socrata, convert to pandas dataframe and upload to project database*)
+│		│		├── **security_key.py** (*Generate new Django security key for new users*)
+│		│		└── **sfo_permits.py** (*Retrieve JSON API data from Socrata, convert to pandas dataframe and upload to project database*)
+│		├── migrations
+│		│		├── _init_.py
+│		│		├── **0001_initial.py** (*Initial Django model migration to database*)
+│   ├── static/city3d
+│   │   ├── buildings
+│		│		│		├── Austin/img
+│		│		│		│		├── **Block_185.jpg** (*Image for sample building*)
+│		│		│		│		└── **The_Republic.jpg** (*Image for sample building*)
+│		│		│		├── base
+│		│		│		│		├── **pin_blue.gltf** (*Blue pin added to maps*)
+│		│		│		│		└── **pin.gltf** (*Red pin added to maps*)
+│		│		│		└── San Francisco/img
+│		│		│				└── **655_Folsom.jpg** (*Image for sample building*)
+│		│		└── styles.css
+│   └── templates/city3d
+│				├── city3d
+│		  	│		├── **city.html** (*3D map, renders individual cities*)
+│				│		├── **index.html** (*Homepage, base US map*)
+│				│		└── layout.html
+│				├── _init_.py
+│				├── admin.py
+│				├── apps.py
+│				├── models.py
+│				├── tests.py
+│				├── urls.py
+│				└── views.py
+├── **.env** - (*Not included in github for security purposes, see instructions below*)
+├── .gitignore
+├── **db.sqlite3** (*Project database*)
+├── **README.md** (*Overview of project*)
+└── **requirements.txt** (*Packages required to run application*)
+```
+
 ## Startup Instructions
 
 Before running our application please ensure you have the latest versions of `python`, `pip`, and `Django` installed on your system.
