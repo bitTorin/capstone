@@ -1,1 +1,1 @@
-web: gunicorn city3d.wsgi
+web: gunicorn capstone.wsgi
