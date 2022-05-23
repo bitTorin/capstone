@@ -123,8 +123,9 @@ class Command(BaseCommand):
         df = df.drop_duplicates(subset=['latitude', 'longitude'], keep='last')
 
         # Database info
-        database_name = settings.DATABASES['default']['NAME']
-        database_url = 'sqlite:///{}'.format(database_name)
+        # database_name = settings.DATABASES['default']['NAME']
+        # database_url = 'sqlite:///{}'.format(database_name)
+        database_url = str(os.getenv('DB_ENGINE'))
 
         # Save to Postgres (faster than 'to_sql' https://stackoverflow.com/questions/23103962/how-to-write-dataframe-to-postgres-table)
         engine = create_engine(database_url)
