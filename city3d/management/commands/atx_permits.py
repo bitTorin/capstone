@@ -94,8 +94,9 @@ class Command(BaseCommand):
         df = df.drop_duplicates(subset=['latitude', 'longitude'], keep='last')
 
         # Database info
-        database_name = settings.DATABASES['default']['NAME']
-        database_url = 'sqlite:///{}'.format(database_name)
+        # database_name = settings.DATABASES['default']['NAME']
+        # database_url = 'sqlite:///{}'.format(database_name)
+        database_url = settings.DATABASES['default']
 
         # Save to database
         engine = create_engine(database_url)
