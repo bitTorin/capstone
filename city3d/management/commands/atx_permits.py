@@ -96,11 +96,11 @@ class Command(BaseCommand):
         # Database info
         # database_name = settings.DATABASES['default']['NAME']
         # database_url = 'sqlite:///{}'.format(database_name)
-        database_url = settings.DATABASES['default']
+        database_url = str(os.getenv('DATABASE_URL'))
 
         # Save to database
         engine = create_engine(database_url)
 
-        df.to_sql(Permit._meta.db_table, if_exists='append', con=engine,  index=False)
+        df.to_sql(Permit._meta.db_table, if_exists='append', con=engine, index=False)
 
         # df.to_csv('atx_permits.csv', sep='\t', index=False)
