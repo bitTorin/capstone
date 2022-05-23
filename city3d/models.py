@@ -74,7 +74,7 @@ class Permit(models.Model):
     address = models.CharField(max_length=64, null=True, blank=True)
     city = models.CharField(max_length=64)
     state = models.CharField(max_length=64)
-    zip = models.IntegerField()
+    zip = models.IntegerField(blank=True, null=True)
     link = models.URLField()
     latitude = models.DecimalField(max_digits = 20, decimal_places = 17, blank=True)
     longitude = models.DecimalField(max_digits = 20, decimal_places = 17, blank=True)
