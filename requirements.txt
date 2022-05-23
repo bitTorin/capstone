@@ -8,5 +8,6 @@ django-environ
 django-cleanup
 dj_database_url
 environ
+python-dotenv
 WhiteNoise
 Brotli
