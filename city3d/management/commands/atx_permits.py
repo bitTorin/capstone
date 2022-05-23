@@ -97,7 +97,7 @@ class Command(BaseCommand):
         # Database info
         # database_name = settings.DATABASES['default']['NAME']
         # database_url = 'sqlite:///{}'.format(database_name)
-        database_url = str(os.getenv('DATABASE_URL'))
+        database_url = str(os.getenv('DB_ENGINE'))
 
         # Save to database
         engine = create_engine(database_url)
