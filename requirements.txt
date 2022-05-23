@@ -9,3 +9,4 @@ django-cleanup
 dj_database_url
 environ
 WhiteNoise
+Brotli
