@@ -4,3 +4,4 @@ sqlalchemy
 gunicorn
 django-heroku
 django-dotenv
+WhiteNoise
