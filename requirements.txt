@@ -3,4 +3,3 @@ sodapy
 sqlalchemy
 gunicorn
 django-heroku
-django-dotenv
