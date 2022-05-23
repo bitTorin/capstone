@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 from django.conf import settings
 from sodapy import Socrata
 import io
+import os
 
 from city3d.models import Permit
 
