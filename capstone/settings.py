@@ -36,7 +36,7 @@ DATABASE_URL = str(os.getenv('DATABASE_URL'))
 # Mapbox API
 MAPBOX_API = str(os.getenv('MAPBOX_API'))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://permits-3d.herokuapp.com']
 
 
 # Application definition
