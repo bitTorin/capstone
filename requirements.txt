@@ -6,5 +6,6 @@ django-heroku
 django-dotenv
 django-environ
 django-cleanup
+dj_database_url
 environ
 WhiteNoise
