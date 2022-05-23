@@ -4,4 +4,6 @@ sqlalchemy
 gunicorn
 django-heroku
 django-dotenv
+django-environ
+environ
 WhiteNoise
